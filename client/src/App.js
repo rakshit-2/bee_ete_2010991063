@@ -1,10 +1,10 @@
 
 import './App.css';
 
-const App =(props)=> {
+const App=(props)=> {
   return (
     <>
-    APP
+
     </>
   );
 }
