@@ -17,11 +17,6 @@ const routes = require("./routes")
 
 
 mongoose.set('strictQuery',true);
-const app=express()
-// app.use(cors());
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use(express.json())
-app.use("/api", routes)
 
 mongoose.connect(db_elements.db_url,
 {
@@ -29,6 +24,11 @@ mongoose.connect(db_elements.db_url,
 }).then(()=>
 {
     
+    const app=express()
+    app.use(cors());
+    app.use(bodyParser.urlencoded({ extended: true }))
+    app.use(express.json())
+    app.use("/api", routes)
     app.listen(db_elements.db_port,()=>
     {
         console.log(`Server running on port: ${db_elements.db_port}`);
