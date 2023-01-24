@@ -1,5 +1,6 @@
 const express = require("express")
 const TEST = require("./models/Test")
+const USER = require("./models/user")
 const router = express.Router()
 
 // Get all tests
@@ -39,6 +40,60 @@ router.post("/post/profile/details", async (req, res) => {
 })
 
 
+
+// signup check
+router.post("/post/sign-up", async (req, res) => {
+	var name=req.body.name;
+	var email=req.body.email;
+	var pass=req.body.pass;
+	try 
+	{
+        const ele=await USER.findOne({user_email:email,user_pass:pass}).exec();;
+        if(ele!==null)
+		{
+			res.status(200).send("alreadyExist");
+		}
+		else
+		{
+			try
+			{
+				const ele=await USER.insertMany([{user_name:name,user_email:email,user_pass:pass}]);
+				res.status(200).send("createdSuccess")
+			}
+			catch(error) {
+				res.status(404).json({message:error.message});
+			}
+		}
+    }
+	catch (error) 
+	{
+        res.status(404).json({message:error.message});
+    }
+})
+
+
+
+// Signin Check
+router.post("/post/sign-in", async (req, res) => {
+	var email=req.body.email;
+	var pass=req.body.pass;
+	try 
+	{
+        const ele=await USER.findOne({user_email:email,user_pass:pass}).exec();
+        if(ele!==null)
+		{
+			res.status(200).send("loginSuccess");
+		}
+		else
+		{
+			res.status(200).send("loginFailed");
+		}
+    }
+	catch (error) 
+	{
+        res.status(404).json({message:error.message});
+    }
+})
 
 
 module.exports = router

@@ -64,15 +64,15 @@ let ele = new schema({
 	},
 	user_send:
     {
-        type:Array,
+        type:[Object],
     },
     user_recieve:
     {
-        type:Array,
+        type:[Object],
     },
     user_accepted:
     {
-        type:Array,
+        type:[Object],
     }
     
 })
