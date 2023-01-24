@@ -77,13 +77,14 @@ const Auth=(props)=> {
       {
         alert("Login Successful!!!")
         navigate("/profile")
+        document.getElementById("emailLogin").value="";
+        document.getElementById("passLogin").value="";
       }
       else if(res.data==="loginFailed")
       {
         alert("Email or Password Incorrect")
       }
-      document.getElementById("emailLogin").value="";
-      document.getElementById("passLogin").value="";
+      
       // document.getElementById("checkTest").;
     });
   }
