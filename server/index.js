@@ -31,6 +31,7 @@ mongoose.connect(db_elements.db_url,
     app.use("/api", routes)
     app.listen(db_elements.db_port,()=>
     {
+        console.log(`Connected to server!!`);
         console.log(`Server running on port: ${db_elements.db_port}`);
     }
 )}).catch((error)=>
