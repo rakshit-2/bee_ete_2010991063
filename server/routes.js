@@ -41,6 +41,12 @@ router.post("/post/profile/details", async (req, res) => {
 
 
 
+
+
+// --------------------------------------------------------------------------------
+// Auth working signin / signup api check
+// --------------------------------------------------------------------------------
+
 // signup check
 router.post("/post/sign-up", async (req, res) => {
 	var name=req.body.name;

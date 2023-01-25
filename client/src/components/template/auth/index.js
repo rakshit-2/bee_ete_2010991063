@@ -2,7 +2,7 @@ import './index.css';
 import Axios from 'axios'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import Navbar from './../navbar/index';
 
 
 
@@ -93,6 +93,7 @@ const Auth=(props)=> {
 
   return (
     <>
+    <Navbar/>
     <div className='outer__auth'>
       <div className="inner__auth">
         <div className="main__auth">  	
