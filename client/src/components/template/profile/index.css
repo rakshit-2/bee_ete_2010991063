@@ -1,0 +1,134 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Sofia+Sans&display=swap');
+
+.profile__outer{
+    width:100%;
+    height:100vh;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('./../../assets/image/home_back6.jpg');
+}
+.profile__inner{
+    width:60%;
+    height:fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 5rem;
+    background-color: white;
+    border-radius: 1rem;
+}
+.profile__inner__image{
+    width:200px;
+    height:200px;
+    border-radius: 50%;
+    margin-bottom: 3rem;
+    margin-top: 3rem;
+}
+
+.loading__outer__inner{
+    width:200px;
+    height:200px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+}
+.profile__inner__each{
+    width:100%;
+    height:fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: 1rem;
+}
+.profile__inner__each__left{
+    width:40%;
+    height:fit-content;
+    flex-direction: column;
+}
+.profile__inner__each__left__head{
+    width:100%;
+    height:fit-content;
+    color: rgb(244, 72, 72);
+    font-size: 20px;
+    font-family: 'Pacifico', cursive;
+}
+.profile__inner__each__left__content{
+    width:100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+.profile__inner__each__left__content__select{
+    width:90%;
+    height: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin: 1.4rem;
+}
+.profile__inner__each__left__content__select__gender{
+    width:100%;
+    height:fit-content;
+    outline: none;
+    font-size: 1rem;
+    font-family: 'Pacifico', cursive;
+}
+.profile__inner__each__left__content__field{
+    width:90%;
+    height:1rem;
+    border: none;
+    outline: none;
+    font-size: 15px;
+    font-family: 'Pacifico', cursive;
+    background-color: rgba(198, 197, 197, 0.547);
+}
+.profile__inner__each__right{
+    width:45%;
+    height:fit-content;
+}
+.profile__inner__each__left__content__each{
+    width:95%;
+    padding: 5px;
+    font-family: 'Pacifico', cursive;
+}
+.profile__line{
+    width:100px;
+    height:3px;
+    border-radius: 1rem;
+}
+
+
+.profile__inner__each__button{
+    width:100%;
+    height:fit-content;
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    justify-content: center;
+}
+.profile__inner__each__button__btn{
+    width:fit-content;
+    height:fit-content;
+    padding: 8px;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    border-radius: 10px;
+    font-size: 18px;
+    color: white;
+    cursor: pointer;
+    background-color: rgb(244, 72, 72);
+    font-family: 'Pacifico', cursive;
+}

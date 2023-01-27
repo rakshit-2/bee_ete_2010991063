@@ -18,9 +18,33 @@ import HomeSection2Card from '../../atom/homeSection2Card';
 import HomeSection2Data from '../../assets/store/homeSection2Data';
 import HomeSection3Card from '../../atom/homeSection3Card';
 import HomeSection3Data from '../../assets/store/homeSection3Data';
+import HomeSection4Data from '../../assets/store/homeSection4Data';
+import HomeSection5Card from '../../atom/homeSection5Card';
+import HomeSection5Data from '../../assets/store/homeSection5Data';
+import Carousel from "react-multi-carousel";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
+import 'react-multi-carousel/lib/styles.css';
+
 
 const Home=(props)=> {
-  
+  const responsive = {
+    desktop: {
+    breakpoint: { max: 3000, min: 1024 },
+    items: 3,
+    slidesToSlide: 1
+    },
+    tablet: {
+    breakpoint: { max: 1024, min: 750 },
+    items: 1,
+    slidesToSlide: 1
+    },
+    mobile: {
+    breakpoint: { max: 749, min: 0 },
+    items: 1,
+    slidesToSlide: 1
+    }
+  };
   return (
     <>
       <Navbar LoggedIn={props.LoggedIn} LoggedInStatus={props.LoggedInStatus}/>
@@ -82,9 +106,158 @@ const Home=(props)=> {
           </div>
         </div>
       </Parallax>
-      <div className='home__outer__section4'>
+      <div className='home__outer__section2'>
+        <div className='home__outer__section2__right'>
+          <div className='home__outer__section2__right__inner'>
+            <Parallax blur={1} bgImage={back5} style={{borderRadius:"1rem"}} bgImageAlt="the cat" strength={200}>
+              <div className='home__outer__section2__right__inner__img'></div>
+            </Parallax>
+          </div>
+        </div>
+        <div className='home__outer__section4__left'>
+          <div className='home__outer__section2__left__inner'>
+            <div className='home__outer__section2__left__inner__smallhead' data-aos="fade-left">
+              BEST FOR YOU
+            </div>
+            <div className='home__outer__section2__left__inner__head' data-aos="fade-left">
+              Membership Plans
+            </div>
+            <div className='home__outer__section2__left__inner__content'>
+              <div className='home__outer__section2__left__inner__content__each'  data-aos="fade-left"  data-aos-delay={0}>
+                <div className='home__outer__section2__left__inner__content__each__head'>
+                  Free 
+                </div>
+                {
+                  HomeSection4Data.free.map((ele)=>{
+                    const{id,text,icon,colorIcon,colorText}=ele;
+                    return(
+                      <div key={id} className='home__outer__section2__left__inner__content__each__each' style={{color:colorText}}>
+                        <FontAwesomeIcon icon={icon} size="md" color={colorIcon} className='nav__icon'/>{text}
+                      </div>
+                    )
+                  })
+                }
+                
+              </div>
+              <div className='home__outer__section2__left__inner__content__each'  data-aos="fade-left" data-aos-delay={100}>
+                <div className='home__outer__section2__left__inner__content__each__head'>
+                  Paid 
+                </div>
+                {
+                  HomeSection4Data.paid.map((ele)=>{
+                    const{id,text,icon,colorIcon,colorText}=ele;
+                    return(
+                      <div key={id} className='home__outer__section2__left__inner__content__each__each' style={{color:colorText}}>
+                        <FontAwesomeIcon icon={icon} size="md" color={colorIcon} className='nav__icon'/>{text}
+                      </div>
+                    )
+                  })
+                }
+              </div>
+            </div>
+            <div className='home__outer__section2__left__inner__button'>
+                <div className='home__outer__section2__left__inner__button__each' >
+                  Browse Plans
+                </div>
+            </div> 
+          </div>
+        </div>
+        
         
       </div>
+      <Parallax blur={1} bgImage={back6} bgImageAlt="the cat" strength={200}>
+        <div className='home__outer__section5'>
+          <div className='home__outer__section3__inner'>
+            <div className='home__outer__section3__smallhead'data-aos="fade-right" style={{color:"white"}} >
+            LAKHS OF HAPPY COUPLES
+            </div>
+            <div className='home__outer__section2__head'data-aos="fade-right">
+            Matched by Wedding+
+            </div>
+          </div>
+          
+          <div className='home__outer__section5__content'>
+            <Carousel 
+              responsive={responsive} 
+              draggable
+              pauseOnHover
+              infinite
+              showDots={true}
+              removeArrowOnDeviceType={["tablet", "mobile","desktop"]}>
+                  {
+                    HomeSection5Data.map((ele)=>{
+                      const{id,img,heading}=ele;
+                      return(
+                        <HomeSection5Card id={id} img={img} heading={heading} num={id+1}/>
+                      )
+                    })
+                  }
+              </Carousel>
+          </div>
+        </div>
+      </Parallax>
+
+
+      <div className='home__outer__section2'>
+        <div className='home__outer__section2__right'>
+          <div className='home__outer__section2__right__inner'>
+            <Parallax blur={1} bgImage={back5} style={{borderRadius:"1rem"}} bgImageAlt="the cat" strength={200}>
+              <div className='home__outer__section2__right__inner__img'></div>
+            </Parallax>
+          </div>
+        </div>
+        <div className='home__outer__section4__left'>
+          <div className='home__outer__section2__left__inner'>
+            <div className='home__outer__section2__left__inner__smallhead' data-aos="fade-left">
+              BEST FOR YOU
+            </div>
+            <div className='home__outer__section2__left__inner__head' data-aos="fade-left">
+              Membership Plans
+            </div>
+            <div className='home__outer__section2__left__inner__content'>
+              <div className='home__outer__section2__left__inner__content__each'  data-aos="fade-left"  data-aos-delay={0}>
+                <div className='home__outer__section2__left__inner__content__each__head'>
+                  Free 
+                </div>
+                {
+                  HomeSection4Data.free.map((ele)=>{
+                    const{id,text,icon,colorIcon,colorText}=ele;
+                    return(
+                      <div key={id} className='home__outer__section2__left__inner__content__each__each' style={{color:colorText}}>
+                        <FontAwesomeIcon icon={icon} size="md" color={colorIcon} className='nav__icon'/>{text}
+                      </div>
+                    )
+                  })
+                }
+                
+              </div>
+              <div className='home__outer__section2__left__inner__content__each'  data-aos="fade-left" data-aos-delay={100}>
+                <div className='home__outer__section2__left__inner__content__each__head'>
+                  Paid 
+                </div>
+                {
+                  HomeSection4Data.paid.map((ele)=>{
+                    const{id,text,icon,colorIcon,colorText}=ele;
+                    return(
+                      <div key={id} className='home__outer__section2__left__inner__content__each__each' style={{color:colorText}}>
+                        <FontAwesomeIcon icon={icon} size="md" color={colorIcon} className='nav__icon'/>{text}
+                      </div>
+                    )
+                  })
+                }
+              </div>
+            </div>
+            <div className='home__outer__section2__left__inner__button'>
+                <div className='home__outer__section2__left__inner__button__each' >
+                  Browse Plans
+                </div>
+            </div> 
+          </div>
+        </div>
+        
+        
+      </div>
+      
     </>
   );
 }

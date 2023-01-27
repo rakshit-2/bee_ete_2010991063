@@ -44,6 +44,7 @@ const Auth=(props)=> {
       if(res.data.message==="createdSuccess")
       {
         alert("Account Created Successfully!!!")
+        console.log(res.data.data)
         props.LoggedInStatusCheck(true,res.data.data)
         navigate("/profile")
       }
@@ -77,6 +78,7 @@ const Auth=(props)=> {
       if(res.data.message==="loginSuccess")
       {
         alert("Login Successful!!!")
+        console.log(res)
         props.LoggedInStatusCheck(true,res.data.data)
         navigate("/profile")
         document.getElementById("emailLogin").value="";
