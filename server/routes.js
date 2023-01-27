@@ -1,6 +1,9 @@
 const express = require("express")
 const TEST = require("./models/Test")
 const USER = require("./models/user")
+const Logger=require('./connect/logg')
+const bcrypt = require('bcrypt');
+
 const router = express.Router()
 
 // Get all tests
@@ -49,30 +52,37 @@ router.post("/post/profile/details", async (req, res) => {
 
 // signup check
 router.post("/post/sign-up", async (req, res) => {
+	Logger.Logg.info("-----------server/post/sign-up")
 	var name=req.body.name;
 	var email=req.body.email;
-	var pass=req.body.pass;
+	const saltfuck = bcrypt.genSaltSync(10);
+	const pass = bcrypt.hashSync(req.body.pass, saltfuck);
 	try 
 	{
-        const ele=await USER.findOne({user_email:email,user_pass:pass}).exec();;
+        const ele=await USER.findOne({user_email:email}).exec();
         if(ele!==null)
 		{
-			res.status(200).send("alreadyExist");
+			Logger.Logg.error("Existing user!!")
+			res.status(200).send({message:"alreadyExist",data:false});
 		}
 		else
 		{
 			try
 			{
 				const ele=await USER.insertMany([{user_name:name,user_email:email,user_pass:pass}]);
-				res.status(200).send("createdSuccess")
+				const ele1=await USER.findOne({user_email:email}).exec();
+				res.status(200).send({message:"createdSuccess",data:ele1._id})
+				Logger.Logg.success("User Created Success!!")
 			}
 			catch(error) {
 				res.status(404).json({message:error.message});
+				Logger.Logg.error(error.message);
 			}
 		}
     }
 	catch (error) 
 	{
+		Logger.Logg.error(error.message);
         res.status(404).json({message:error.message});
     }
 })
@@ -81,25 +91,43 @@ router.post("/post/sign-up", async (req, res) => {
 
 // Signin Check
 router.post("/post/sign-in", async (req, res) => {
+	Logger.Logg.info("-----------server/post/sign-in")
 	var email=req.body.email;
 	var pass=req.body.pass;
 	try 
 	{
-        const ele=await USER.findOne({user_email:email,user_pass:pass}).exec();
+        const ele=await USER.findOne({user_email:email}).exec();
+		
         if(ele!==null)
 		{
-			res.status(200).send("loginSuccess");
+			if (bcrypt.compareSync(pass,ele.user_pass))
+			{
+				res.status(200).send({message:"loginSuccess",data:ele._id});
+				Logger.Logg.success("User LogIn Success!!")
+			}
+			else
+			{
+				Logger.Logg.error("User LogIn Failed!!")
+				res.status(200).send({message:"loginFailed",data:false});
+			}
+			
 		}
 		else
 		{
-			res.status(200).send("loginFailed");
+			Logger.Logg.error("User LogIn Failed!!")
+			res.status(200).send({message:"loginFailed",data:false});
 		}
     }
 	catch (error) 
 	{
+		Logger.Logg.error(error.message)
         res.status(404).json({message:error.message});
     }
 })
+
+
+
+
 
 
 module.exports = router

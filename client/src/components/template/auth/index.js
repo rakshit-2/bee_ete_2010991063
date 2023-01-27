@@ -41,12 +41,13 @@ const Auth=(props)=> {
       email:email,
       pass:pass
     }).then((res)=>{
-      if(res.data==="createdSuccess")
+      if(res.data.message==="createdSuccess")
       {
         alert("Account Created Successfully!!!")
+        props.LoggedInStatusCheck(true,res.data.data)
         navigate("/profile")
       }
-      else if(res.data==="alreadyExist")
+      else if(res.data.message==="alreadyExist")
       {
         alert("Account Already Exists Please Login!!!")
       }
@@ -73,14 +74,15 @@ const Auth=(props)=> {
       email:emailLogin,
       pass:passLogin
     }).then((res)=>{
-      if(res.data==="loginSuccess")
+      if(res.data.message==="loginSuccess")
       {
         alert("Login Successful!!!")
+        props.LoggedInStatusCheck(true,res.data.data)
         navigate("/profile")
         document.getElementById("emailLogin").value="";
         document.getElementById("passLogin").value="";
       }
-      else if(res.data==="loginFailed")
+      else if(res.data.message==="loginFailed")
       {
         alert("Email or Password Incorrect")
       }
@@ -96,7 +98,7 @@ const Auth=(props)=> {
     <Navbar/>
     <div className='outer__auth'>
       <div className="inner__auth">
-        <div className="main__auth">  	
+        <div className="main__auth" data-aos="fade-up">  	
           <input type="checkbox" id="chk" aria-hidden="true"/>
           <div className="signup">
             <form>

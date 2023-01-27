@@ -23,7 +23,7 @@ const Home=(props)=> {
   
   return (
     <>
-      <Navbar/>
+      <Navbar LoggedIn={props.LoggedIn} LoggedInStatus={props.LoggedInStatus}/>
       <Parallax blur={1} bgImage={back1} bgImageAlt="the cat" strength={200}>
         <div className='home__outer__section1'>
           <div className='home__outer__section1__'>
@@ -79,17 +79,12 @@ const Home=(props)=> {
                   )
                 })
               }
-
           </div>
         </div>
       </Parallax>
-      <Parallax blur={1} bgImage={back1} bgImageAlt="the cat" strength={200}>
-        <div className='home__outer__section1'>
-          <div className='home__outer__section1__'>
-
-          </div>
-        </div>
-      </Parallax>
+      <div className='home__outer__section4'>
+        
+      </div>
     </>
   );
 }

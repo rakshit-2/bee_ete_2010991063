@@ -16,14 +16,55 @@ const App=(props)=> {
     duration: 1500,
     easing: 'ease-in-sine',
   });
+
+
+
+  // globalStates
+  const[LoggedIn,setLoggedIn]=useState("");
+  const[LoggedInStatus,setLoggedInStatus]=useState(false);
+  
+  
+  function LoggedInStatusCheck(x,data)
+  {
+    if(x==true)
+    {
+      setLoggedIn(data);
+      setLoggedInStatus(x);
+    }
+  }
+
+
+
+
+
   return (
     <>
     <BrowserRouter>
       <Routes>
-        <Route path="/home" element={<Home />}></Route>
-        <Route path="/search" element={<Search />}></Route>
-        <Route path="/profile" element={<Profile />}></Route>
-        <Route path="/auth" element={<Auth />}></Route>
+        <Route path="/home" element={
+          <Home 
+            LoggedIn={LoggedIn} LoggedInStatus={LoggedInStatus}
+          />}>
+        </Route>
+        <Route path="/search" element={
+          <Search
+            LoggedIn={LoggedIn} LoggedInStatus={LoggedInStatus}
+          />}>
+
+        </Route>
+        <Route path="/profile" element={
+          <Profile 
+            LoggedIn={LoggedIn} LoggedInStatus={LoggedInStatus}
+          />}>
+
+        </Route>
+        <Route path="/auth" element={
+          <Auth 
+            LoggedIn={LoggedIn}
+            LoggedInStatusCheck={LoggedInStatusCheck}
+            LoggedInStatus={LoggedInStatus}
+          />}>
+          </Route>
         <Route path="*" element={<Navigate to="/home" replace />} />
       </Routes>
     </BrowserRouter>

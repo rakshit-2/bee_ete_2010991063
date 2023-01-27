@@ -31,6 +31,7 @@
     align-items: center;
     justify-content: space-around;
     margin-left: 1rem;
+    cursor: pointer;
 }
 .navbar__inner__center{
     width:fit-content;
@@ -40,6 +41,7 @@
     justify-content: center;
     font-family: 'Pacifico', cursive;
     font-size: 30px;
+    cursor: pointer;
 }
 .navbar__inner__right{
     width:fit-content;
@@ -50,4 +52,5 @@
 }
 .nav__icon{
     margin: 1rem;
+    cursor: pointer;
 }
