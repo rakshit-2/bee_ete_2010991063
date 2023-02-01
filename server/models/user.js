@@ -4,6 +4,9 @@ const mongoose = require("mongoose");
 const schema = mongoose.Schema;
 
 let ele = new schema({
+	user_updated:{
+		type:Boolean
+	},
 	user_name:{
 		type:String
 	},
@@ -13,7 +16,7 @@ let ele = new schema({
 	user_pass:{
 		type:String
 	},
-	user_DOB:{
+	user_age:{
 		type:String
 	},
 	user_gender:{
@@ -47,8 +50,7 @@ let ele = new schema({
 		type:String
 	},
 	user_image:{
-		data:Buffer,
-        contentType:String
+		type:String
 	},
 	user_pack:{
 		type:String

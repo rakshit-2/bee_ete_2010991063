@@ -26,11 +26,8 @@ const App=(props)=> {
   
   function LoggedInStatusCheck(x,data)
   {
-    if(x==true)
-    {
-      setLoggedIn(data);
-      setLoggedInStatus(x);
-    }
+    setLoggedIn(data);
+    setLoggedInStatus(x);
   }
 
 
@@ -54,6 +51,7 @@ const App=(props)=> {
         </Route>
         <Route path="/profile" element={
           <Profile 
+            LoggedInStatusCheck={LoggedInStatusCheck}
             LoggedIn={LoggedIn} LoggedInStatus={LoggedInStatus}
           />}>
 

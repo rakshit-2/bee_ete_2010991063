@@ -6,7 +6,15 @@ import Axios from 'axios';
 import ProfileData from '../../assets/store/profileData';
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { faBell } from '@fortawesome/free-solid-svg-icons';
+import { faList } from '@fortawesome/free-solid-svg-icons';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
+import { HashLink } from 'react-router-hash-link';
+import satyam from './../../assets/image/satyam.jpeg'
 
 const Profile = (props) => {
     const navigate = useNavigate();
@@ -164,7 +172,11 @@ const Profile = (props) => {
     }
 
 
-    console.log(props.LoggedIn)
+    function LogoutClicked()
+    {
+        props.LoggedInStatusCheck(false,"");
+        navigate('/home')
+    }
     return (
         <>
             <Navbar LoggedIn={props.LoggedIn} LoggedInStatus={props.LoggedInStatus} />
@@ -180,14 +192,36 @@ const Profile = (props) => {
                         </div>
                     ) : (
                         <div className='profile__inner'>
-                            <div className='profile__inner__image' style={{ display: afterSubmit.before }}>
-                                <img src={require('./../../assets/image/face1.jpg')} style={{ width: "100%", height: "100%", borderRadius: "50%" }} />
+                            <div className='profile__inner__image'>
+                                {
+                                    userData.user_updated ?(
+                                        <>
+                                        <img src={require(`./../../assets/image/${userData.user_image}`)} style={{ width: "100%", height: "100%", borderRadius: "50%"}} />
+                                        </>
+                                    ):(
+                                        <>
+                                        <img src={require('./../../assets/image/face1.jpg')} style={{ width: "100%", height: "100%", borderRadius: "50%" }} />
+                                        </>
+                                    )
+                                }
                             </div>
-                            <div className='profile__inner__image' style={{ display: afterSubmit.after }}>
-                                <img src={require(`./../../assets/image/${userData.user_image}`)} style={{ width: "100%", height: "100%", borderRadius: "50%" }} />
+                            {/* <div className='profile__inner__image' >
+                                
+                            </div> */}
+                            
+                            <div className='profile__inner__nav'>
+                                <HashLink to='/profile#notification' smooth className="profile__inner__nav__each" >
+                                    <FontAwesomeIcon icon={faBell} size="xl" color="black" className='nav__icon'/>
+                                </HashLink>
+                                <div className='profile__inner__nav__each'>
+                                    <FontAwesomeIcon icon={faList} size="xl" color="black" className='nav__icon'/> 
+                                </div>  
+                                <div className='profile__inner__nav__each' onClick={()=>{LogoutClicked()}}>
+                                    <FontAwesomeIcon icon={faRightFromBracket} size="xl" color="black" className='nav__icon'/> 
+                                </div>       
+                                                           
                             </div>
-                            
-                            
+                            <div className='profile__inner__nav__line'></div>
                             <div className='profile__inner__each'>
                                 <div className='profile__inner__each__left'>
                                     <div className='profile__inner__each__left__head'>
@@ -496,6 +530,74 @@ const Profile = (props) => {
                                     SAVE
                                 </div>
                             </div>
+
+
+
+
+                            <div className='profile__inner__notification' id="notification">
+                                <div className='profile__inner__notification__head'>
+                                    Notification
+                                </div>
+                                <div className='profile__inner__nav__line'></div>
+                                <div className='profile__inner__notification__head__small'>
+                                    Request Recived:
+                                </div>
+                                <div className='profile__inner__notification__addedme'>
+                                    <div className='profile__inner__notification__addedme__each'>
+                                        <div className='profile__inner__notification__addedme__each__image'>
+                                            <img src={satyam} style={{width:"100%",height:"100%",borderRadius:"50%"}}/>
+                                        </div>
+                                        <div className=''>
+                                            <div className='profile__inner__notification__addedme__each__name'>
+                                                {userData.user_name}
+                                            </div>
+                                            <div className='profile__inner__notification__addedme__each__about'>
+                                                Hi i am Rakshit Sharma student at chitkara university
+                                                Hi i am Rakshit Sharma student at chitkara university
+                                            </div>
+                                        </div>
+                                        <div className='profile__inner__notification__addedme__each__button' style={{backgroundColor:"rgb(6, 186, 87)"}}>
+                                            <FontAwesomeIcon icon={faCheck} size="md" color="white"/> 
+                                        </div>
+                                        <div className='profile__inner__notification__addedme__each__button'  style={{backgroundColor:"rgb(244, 72, 72)"}}>
+                                            <FontAwesomeIcon icon={faXmark} size="md" color="white"/> 
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div className='profile__inner__notification__head__small'>
+                                    Request Sent:
+                                </div>
+                                <div className='profile__inner__notification__addedme'>
+                                    <div className='profile__inner__notification__addedme__each'>
+                                        <div className='profile__inner__notification__addedme__each__image'>
+                                            <img src={satyam} style={{width:"100%",height:"100%",borderRadius:"50%"}}/>
+                                        </div>
+                                        <div className=''>
+                                            <div className='profile__inner__notification__addedme__each__name'>
+                                                {userData.user_name}
+                                            </div>
+                                            <div className='profile__inner__notification__addedme__each__about'>
+                                                Hi i am Rakshit Sharma student at chitkara university
+                                                Hi i am Rakshit Sharma student at chitkara university
+                                            </div>
+                                        </div>
+                                        <div className='profile__inner__notification__addedme__each__button' style={{backgroundColor:"rgb(6, 186, 87)"}}>
+                                            <FontAwesomeIcon icon={faCheck} size="md" color="white"/> 
+                                        </div>
+                                        <div className='profile__inner__notification__addedme__each__button'  style={{backgroundColor:"rgb(244, 72, 72)"}}>
+                                            <FontAwesomeIcon icon={faXmark} size="md" color="white"/> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+                            
+                            
                         </div>
                     )
                 }

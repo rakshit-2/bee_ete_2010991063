@@ -8,18 +8,17 @@ const routes = require("./routes")
 const logger_all = require("./connect/logg")
 
 
-mongoose.set('strictQuery',true);
 
+mongoose.set('strictQuery',true);
+const app=express()
+app.use(cors());
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(express.json())
 mongoose.connect(db_elements.db_url,
 {
 
 }).then(()=>
 {
-    
-    const app=express()
-    app.use(cors());
-    app.use(bodyParser.urlencoded({ extended: true }))
-    app.use(express.json())
     app.use("/api", routes)
     logger_all.Logg.info("Middleware added, starting connection!!")
     app.listen(db_elements.db_port,()=>
