@@ -1,6 +1,15 @@
 
 const ProfileData=
 {
+    profile_Lang:[
+        {id:0,label:"Hindi"},
+        {id:1,label:"English"},
+        {id:2,label:"Punjabi"},
+        {id:3,label:"Telugu"},
+        {id:4,label:"Marathi"},
+        {id:5,label:"Kannada"},
+        {id:6,label:"Urdu "}
+    ],
     profile_gender:[
         {id:0,label:"Male"},
         {id:1,label:"Female"}
@@ -46,9 +55,9 @@ const ProfileData=
         {id:25,label:"Uttar Pradesh"},
         {id:26,label:"Uttarakhand"},
         {id:27,label:"West Bengal"},
-        {id:28,label:"Andaman and Nicobar Islands"},
+        {id:28,label:"Andaman and Nicobar"},
         {id:29,label:"Chandigarh"},
-        {id:30,label:"Dadra & Nagar Haveli and Daman & Diu"},
+        {id:30,label:"Dadra & Nagar Haveli"},
         {id:31,label:"Delhi"},
         {id:32,label:"Jammu and Kashmir"},
         {id:33,label:"Lakshadweep"},

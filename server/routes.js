@@ -149,7 +149,6 @@ router.post("/profile/get-data", async (req, res) => {
 		
         if(ele!==null)
 		{
-			console.log(ele)
 			res.status(200).send({message:"fetchSuccess",data:ele});
 			Logger.Logg.success("profileFetchSuccess")
 		}
@@ -188,6 +187,10 @@ router.post("/profile/post-data", async (req, res) => {
 	var image=req.body.image;
 	var hobby=req.body.hobby;
 	var about=req.body.about;
+	var zodiac=req.body.zodiac;
+	var dob=req.body.dob;
+	var motherTongue=req.body.motherTongue;
+	var secLang=req.body.secLang;
 	try 
 	{
 		const check_email = { user_email: email };
@@ -209,6 +212,10 @@ router.post("/profile/post-data", async (req, res) => {
 			user_pack:0,
 			user_hobby:hobby,
 			user_about:about,
+			user_zodiac:zodiac,
+			user_dob:dob,
+			user_motherTongue:motherTongue,
+			user_secLang:secLang
 		}
         const ele=await USER.findOneAndUpdate(check_email,check_update);
 		Logger.Logg.success("Successfull Updation")
@@ -220,6 +227,104 @@ router.post("/profile/post-data", async (req, res) => {
         res.status(404).json({message:error.message});
     }
 })
+
+
+
+
+
+
+
+router.post("/profile/matched-get", async (req, res) => {
+	Logger.Logg.info("-----------server/profile/matched-get")
+	var email=req.body.email;
+	try 
+	{
+		const ele=await USER.findOne({user_email:email}).exec();
+		if(ele!==null)
+		{
+			Logger.Logg.success("Successfull Match Get")
+			res.status(200).send({data:ele.user_accepted,message:"Success"})
+		}
+		else
+		{
+			Logger.Logg.success("Failed Match Get")
+			res.status(200).send({data:ele.user_accepted,message:"failed"})
+		}
+		
+    }
+	catch (error) 
+	{
+		Logger.Logg.error(error.message)
+        res.status(404).json({message:error.message});
+    }
+})
+
+
+
+
+
+router.post("/profile/user-sent-get", async (req, res) => {
+	Logger.Logg.info("-----------server/profile/user-sent-get")
+	var email=req.body.email;
+	try 
+	{
+		const ele=await USER.findOne({user_email:email}).exec();
+		if(ele!==null)
+		{
+			Logger.Logg.success("Successfull Match Get")
+			res.status(200).send({data:ele.user_send,message:"Success"})
+		}
+		else
+		{
+			Logger.Logg.success("Failed Match Get")
+			res.status(200).send({data:{},message:"failed"})
+		}
+		
+    }
+	catch (error) 
+	{
+		Logger.Logg.error(error.message)
+        res.status(404).json({message:error.message});
+    }
+})
+
+
+
+router.post("/profile/user-recived-get", async (req, res) => {
+	Logger.Logg.info("-----------server/profile/user-recived-get")
+	var email=req.body.email;
+	try 
+	{
+		const ele=await USER.findOne({user_email:email}).exec();
+		if(ele!==null)
+		{
+			Logger.Logg.success("Successfull Match Get")
+			res.status(200).send({data:ele.user_recieve,message:"Success"})
+		}
+		else
+		{
+			Logger.Logg.success("Failed Match Get")
+			res.status(200).send({data:{},message:"failed"})
+		}
+		
+    }
+	catch (error) 
+	{
+		Logger.Logg.error(error.message)
+        res.status(404).json({message:error.message});
+    }
+})
+
+
+
+
+
+
+
+
+
+
+
 
 
 

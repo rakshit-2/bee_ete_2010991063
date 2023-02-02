@@ -32,6 +32,29 @@ const App=(props)=> {
 
 
 
+  function valuetext(value) {
+      return `${value}`;
+  }
+
+  const [age, setAge] = useState([20, 30]);
+  const [religion, setReligion] = useState('All');
+  const [location, setLocation] = useState('All');
+
+
+  const handleChangeAge = (event, newValue) => {
+      setAge(newValue);
+  };
+
+  const handleChangeLocation = (event) => {
+      setLocation(event.target.value);
+  };
+
+  const handleChangeReligion = (event) => {
+      setReligion(event.target.value);
+  };
+
+
+
 
 
   return (
@@ -40,12 +63,30 @@ const App=(props)=> {
       <Routes>
         <Route path="/home" element={
           <Home 
-            LoggedIn={LoggedIn} LoggedInStatus={LoggedInStatus}
+            LoggedInStatusCheck={LoggedInStatusCheck}
+            LoggedIn={LoggedIn} 
+            LoggedInStatus={LoggedInStatus}
+            location={location}
+            religion={religion}
+            age={age}
+            handleChangeAge={handleChangeAge}
+            handleChangeLocation={handleChangeLocation}
+            handleChangeReligion={handleChangeReligion}
+            valuetext={valuetext}
           />}>
         </Route>
         <Route path="/search" element={
           <Search
-            LoggedIn={LoggedIn} LoggedInStatus={LoggedInStatus}
+            LoggedInStatusCheck={LoggedInStatusCheck}
+            LoggedIn={LoggedIn} 
+            LoggedInStatus={LoggedInStatus}
+            location={location}
+            religion={religion}
+            age={age}
+            handleChangeAge={handleChangeAge}
+            handleChangeLocation={handleChangeLocation}
+            handleChangeReligion={handleChangeReligion}
+            valuetext={valuetext}
           />}>
 
         </Route>

@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faRightToBracket } from '@fortawesome/free-solid-svg-icons';
-import logo from './../../assets/image/logo2.png';
+import logo from './../../assets/image/logo3.jpg';
 import { useNavigate } from 'react-router-dom';
 
 {/* <i class="fa-sharp fa-solid fa-file-magnifying-glass"></i> */}

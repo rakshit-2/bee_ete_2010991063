@@ -1,0 +1,115 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Sofia+Sans&display=swap');
+
+
+.search__outer{
+    width:100%;
+    height:fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.search__inner{
+    width:73%;
+    height:100rem;
+    margin-top: 5rem;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: white;
+    position: relative;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.search__inner__head{
+    width:100%;
+    height:fit-content;
+    font-weight: 500;
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Pacifico', cursive;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+.search__inner__display{
+    width:100%;
+    height:fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    position: relative;
+    
+}
+.search__inner__display__filter__outer{
+    width:300px;
+    height:fit-content;
+    position:relative;
+}
+.search__inner__display__filter{
+    width:300px;
+    height:70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    position: fixed;
+    border-radius: 1rem;
+    background-color: white;
+}
+.search__inner__display__filter__top{
+    width:100%;
+    height:90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+.search__inner__display__filter__bottom{
+    width:100%;
+    height:10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.search__inner__display__filter__bottom__button{
+    width:60%;
+    height:80%;
+    border-radius: 10px;
+    color: white;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Pacifico', cursive;
+    font-weight: 500;
+    cursor: pointer;
+    background-color: rgb(244, 72, 72);
+}
+
+.search__inner__display__filter__each{
+    width:90%;
+    height:fit-content;
+    margin-bottom: 0rem;
+    padding: 10px;
+}
+.search__inner__display__filter__each__head{
+    width:90%;
+    height:fit-content;
+    font-family: 'Pacifico', cursive;
+    font-weight: 600;
+    padding-bottom: 5px;
+}
+.search__inner__display__filter__each__info{
+    width:100%;
+    height:fit-content;
+}
+
+.search__inner__display__content{
+    width:45rem;
+    border:1px solid red;
+}

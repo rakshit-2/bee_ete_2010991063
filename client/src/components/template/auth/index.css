@@ -23,7 +23,7 @@
   	/* -webkit-filter: blur(2px); */
 	align-items:center;
 	background-repeat: no-repeat;
-	background-size:1580px 860px;
+	background-size:cover;
 	background-position: center;
 	background-image: url('./../../assets/image/auth_back2.jpg');
 }

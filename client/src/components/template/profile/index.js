@@ -31,6 +31,8 @@ const Profile = (props) => {
     const [marstatPlace, setMarstatPlace] = useState("unmarried");
     const [hobbyPlace, setHobbyPlace] = useState("love to play games");
     const [aboutPlace, setAboutPlace] = useState("Hi, i am Ankita from ...")
+    const [motherTonguePlace, setMotherTonguePlace] = useState("Hindi,English");
+    const [secLangPlace, setSecLangPlace] = useState("Hindi,English")
 
     const [address, setAddress] = useState("");
     const [contact, setContact] = useState("");
@@ -47,6 +49,8 @@ const Profile = (props) => {
     const [hobby, setHobby] = useState("");
     const [pack, setPack] = useState("");
     const [about, setAbout] = useState("")
+    const [motherTongue, setMotherTongue] = useState("Hindi");
+    const [secLang, setSecLang] = useState("English");
 
 
 
@@ -86,12 +90,106 @@ const Profile = (props) => {
         }
     }, []);
 
-
+    function zodiac_sign(day, month)
+    {
+        let astro_sign="";
+           
+        // checks month and date within the
+        // valid range of a specified zodiac
+        if (month == "december"){
+               
+            if (day < 22)
+            astro_sign = "Sagittarius";
+            else
+            astro_sign ="capricorn";
+        }
+               
+        else if (month == "january"){
+            if (day < 20)
+            astro_sign = "Capricorn";
+            else
+            astro_sign = "aquarius";
+        }
+               
+        else if (month == "february"){
+            if (day < 19)
+            astro_sign = "Aquarius";
+            else
+            astro_sign = "pisces";
+        }
+               
+        else if(month == "march"){
+            if (day < 21)
+            astro_sign = "Pisces";
+            else
+            astro_sign = "aries";
+        }
+        else if (month == "april"){
+            if (day < 20)
+            astro_sign = "Aries";
+            else
+            astro_sign = "taurus";
+        }
+               
+        else if (month == "may"){
+            if (day < 21)
+            astro_sign = "Taurus";
+            else
+            astro_sign = "gemini";
+        }
+               
+        else if( month == "june"){
+            if (day < 21)
+            astro_sign = "Gemini";
+            else
+            astro_sign = "cancer";
+        }
+               
+        else if (month == "july"){
+            if (day < 23)
+            astro_sign = "Cancer";
+            else
+            astro_sign = "leo";
+        }
+               
+        else if( month == "august"){
+            if (day < 23)
+            astro_sign = "Leo";
+            else
+            astro_sign = "virgo";
+        }
+               
+        else if (month == "september"){
+            if (day < 23)
+            astro_sign = "Virgo";
+            else
+            astro_sign = "libra";
+        }
+               
+        else if (month == "october"){
+            if (day < 23)
+            astro_sign = "Libra";
+            else
+            astro_sign = "scorpio";
+        }
+               
+        else if (month == "november"){
+            if (day < 22)
+            astro_sign = "scorpio";
+            else
+            astro_sign = "sagittarius";
+        }
+               
+        return (astro_sign);
+    }
 
     function saveInfoClicked()
     {
-        var check_age=parseInt(age)
-        if ((check_age<=19 && check_age>=100) || (age===""))
+        var dob=age.split("-")
+        const d = new Date();
+        let yearNow = d.getFullYear();
+        var check_age=parseInt(yearNow)-parseInt(dob[0])
+        if ((check_age<=19 || check_age>=100 || age===""))
         {
             alert("Fill Age Correctly!!")
             return;
@@ -144,13 +242,14 @@ const Profile = (props) => {
             alert("Fill About Correctly!!")
             return;
         }
-        var check = image.split('\h')
-        var imagess='h'+check[check.length-1];
-        imagess=imagess.slice(2,imagess.length)
+        var check = image.replace(/^.*\\/, "")
+        var monthNames = ["january", "february", "march", "april", "may", "june","july", "august", "september", "october", "november", "december" ];
+        var zodiac=zodiac_sign(parseInt(dob[2]),monthNames[parseInt(dob[1])-1]);
+        var realDob=dob[2]+" "+monthNames[parseInt(dob[1])-1]+" "+dob[0]
         Axios.post('http://localhost:5000/api/profile/post-data',
         {
             updated:true,
-            age:age,
+            age:check_age,
             address:address,
             contact:contact,
             religion:religion,
@@ -160,11 +259,15 @@ const Profile = (props) => {
             occu:occu,
             sallary:sallary,
             marstat:marstat,
-            image:imagess,
+            image:check,
             hobby:hobby,
             about:about,
             email:props.LoggedIn,
-            gender:gender
+            gender:gender,
+            zodiac:zodiac,
+            dob:realDob,
+            motherTongue:motherTongue,
+            secLang:secLang
 
         }).then((res)=>{
             GetProfile()
@@ -259,7 +362,7 @@ const Profile = (props) => {
                             <div className='profile__inner__each'>
                                 <div className='profile__inner__each__left'>
                                     <div className='profile__inner__each__left__head'>
-                                        Age
+                                        Date Of Birth
                                     </div>
                                     <div className='profile__inner__each__left__content' style={{ display: afterSubmit.after }}>
                                         <div className='profile__line'>
@@ -269,7 +372,7 @@ const Profile = (props) => {
                                         </div>
                                     </div>
                                     <div className='profile__inner__each__left__content' style={{ display: afterSubmit.before }}>
-                                        <input type="number" max={100}  onChange={(e)=>{setAge(e.target.value)}} placeholder={agePlace} className='profile__inner__each__left__content__field' />
+                                        <input type="date"  onChange={(e)=>{setAge(e.target.value)}} placeholder={agePlace} className='profile__inner__each__left__content__field' />
                                     </div>
                                 </div>
                                 <div className='profile__inner__each__left'>
@@ -502,6 +605,63 @@ const Profile = (props) => {
                             <div className='profile__inner__each'>
                                 <div className='profile__inner__each__left'>
                                     <div className='profile__inner__each__left__head'>
+                                        Mother Tongue
+                                    </div>
+                                    <div className='profile__inner__each__left__content' style={{ display: afterSubmit.after }}>
+                                        <div className='profile__line'>
+                                        </div>
+                                        <div className='profile__inner__each__left__content__each'>
+                                            {userData.user_motherTongue}
+                                        </div>
+                                    </div>
+                                    <div className='profile__inner__each__left__content' style={{ display: afterSubmit.before }}>
+                                        <select onChange={(e)=>{setMotherTongue(e.target.value)}} className="profile__inner__each__left__content__select__gender">
+                                            {
+                                                ProfileData.profile_Lang.map((ele)=>{
+                                                    const{id,label}=ele;
+                                                    return(
+                                                        <option className='profile__inner__each__left__content__select__gender' key={id} value={label}>{label}</option>
+                                                    )
+                                                })
+                                            }
+                                        </select>
+                                        {/* <input type="text" onChange={(e)=>{setMotherTongue(e.target.value)}} placeholder={motherTonguePlace} className='profile__inner__each__left__content__field' /> */}
+                                    </div>
+                                </div>
+                                <div className='profile__inner__each__left'>
+                                    <div className='profile__inner__each__left__head'>
+                                        2nd Language
+                                    </div>
+                                    <div className='profile__inner__each__left__content' style={{ display: afterSubmit.after }}>
+                                        <div className='profile__line'>
+                                        </div>
+                                        <div className='profile__inner__each__left__content__each'>
+                                            {userData.user_secLang}
+                                        </div>
+                                    </div>
+                                    <div className='profile__inner__each__left__content' style={{ display: afterSubmit.before }}>
+                                        <select onChange={(e)=>{setSecLang(e.target.value)}} className="profile__inner__each__left__content__select__gender">
+                                            {
+                                                ProfileData.profile_Lang.map((ele)=>{
+                                                    const{id,label}=ele;
+                                                    if(label!==motherTongue)
+                                                    {
+                                                        return(
+                                                            <option className='profile__inner__each__left__content__select__gender' key={id} value={label}>{label}</option>
+                                                        )
+                                                    }
+                                                    
+                                                })
+                                            }
+                                        </select>
+                                        {/* <input type="text" onChange={(e)=>{setSecLang(e.target.value)}} placeholder={secLangPlace} className='profile__inner__each__left__content__field' /> */}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className='profile__inner__each'>
+                                <div className='profile__inner__each__left'>
+                                    <div className='profile__inner__each__left__head'>
                                         About
                                     </div>
                                     <div className='profile__inner__each__left__content' style={{ display: afterSubmit.after }}>
@@ -593,7 +753,9 @@ const Profile = (props) => {
                                 </div>
                             </div>
 
-
+                            
+                            <div className=''>
+                            </div>
 
 
                             

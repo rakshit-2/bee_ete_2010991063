@@ -64,6 +64,19 @@ let ele = new schema({
 	user_about:{
 		type:String
 	},
+	user_zodiac:{
+		type:String
+	},
+	user_dob:{
+		type:String
+	},
+	user_motherTongue:{
+		type:String
+	},
+	user_secLang:{
+		type:String
+	},
+
 	user_send:
     {
         type:[Object],
