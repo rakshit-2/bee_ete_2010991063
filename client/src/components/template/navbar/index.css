@@ -39,7 +39,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: 'Pacifico', cursive;
+    font-family: var(--font);
     font-size: 30px;
     cursor: pointer;
 }

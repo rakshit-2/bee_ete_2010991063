@@ -303,7 +303,7 @@ router.post("/profile/user-recived-get", async (req, res) => {
 		}
 		else
 		{
-			Logger.Logg.success("Failed Match Get")
+			Logger.Logg.error("Failed Match Get")
 			res.status(200).send({data:{},message:"failed"})
 		}
 		
@@ -321,7 +321,60 @@ router.post("/profile/user-recived-get", async (req, res) => {
 
 
 
+router.post("/search/user-get", async (req, res) => {
+	Logger.Logg.info("-----------server/search/user-get")
+	var email=req.body.email;
+	try 
+	{
+		const ele=await USER.findOne({user_email:email}).exec();
+		if(ele!==null)
+		{
 
+			Logger.Logg.success("Successfull Email Match User")
+			if(ele.user_gender==="Male")
+			{
+				const ele1=await USER.find({user_gender:"Female"}).exec();
+				if(ele1!=null)
+				{
+					Logger.Logg.success("Success Fetech all Female")
+					res.status(200).send({data:ele1,message:"Success"})
+				}
+				else
+				{
+					Logger.Logg.error("Failed Fetech all Female")
+					res.status(200).send({data:{},message:"Failed"})
+				}
+				
+			}
+			else
+			{
+				const ele2=await USER.find({user_gender:"Male"}).exec();
+				if(ele2!=null)
+				{
+					Logger.Logg.success("Success Fetech all Male")
+					res.status(200).send({data:ele2,message:"Success"})
+				}
+				else
+				{
+					Logger.Logg.error("Failed Fetech all Male")
+					res.status(200).send({data:{},message:"Failed"})
+				}
+			}
+			
+		}
+		else
+		{
+			Logger.Logg.error("Failed Match Get The User")
+			res.status(200).send({data:{},message:"failed"})
+		}
+		
+    }
+	catch (error) 
+	{
+		Logger.Logg.error(error.message)
+        res.status(404).json({message:error.message});
+    }
+})
 
 
 

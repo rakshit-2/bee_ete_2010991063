@@ -19,7 +19,7 @@
     height:fit-content;
     font-size: 65px;
     font-weight: 500;
-    font-family: 'Pacifico', cursive;
+    font-family: var(--font);
 }
 .home__inner__section1__right__inner{
     width:350px;
@@ -48,7 +48,7 @@
     justify-content: center;
     font-size: 30px;
     font-weight: 500;
-    font-family: 'Pacifico', cursive;
+    font-family: var(--font);
     margin-bottom: 1rem;
     margin-top: 1rem;
 }
@@ -59,7 +59,7 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
-    font-family: 'Pacifico', cursive;
+    font-family: var(--font);
 }
 .home__inner__section1__right__each__left{
     width:30%;
@@ -67,7 +67,7 @@
     align-items: center;
     justify-content: center;
     height:fit-content;
-    font-family: 'Pacifico', cursive;
+    font-family: var(--font);
 }
 .home__inner__section1__right__each__right{
     width:50%;
@@ -102,14 +102,14 @@
     font-size: 16px;
     font-weight: 800;
     color:rgb(100, 99, 99);
-    font-family: 'Pacifico', cursive;
+    font-family: var(--font);
 }
 .home__outer__section2__left__inner__head{
     width:100%;
     height:fit-content;
     font-size: 29px;
     font-weight: 800;
-    font-family: 'Pacifico', cursive;
+    font-family: var(--font);
     margin-bottom: 1rem;
 }
 
@@ -162,14 +162,14 @@
     font-size: 16px;
     font-weight: 800;
     color:rgb(100, 99, 99);
-    font-family: 'Pacifico', cursive;
+    font-family: var(--font);
 }
 .home__outer__section2__head{
     width:72%;
     height:fit-content;
     font-size: 29px;
     font-weight: 800;
-    font-family: 'Pacifico', cursive;
+    font-family: var(--font);
 }
 
 .home__outer__section3__content{
@@ -220,7 +220,7 @@
     height:fit-content;
     font-size: 30px;
     font-weight: 800;
-    font-family: 'Pacifico', cursive;
+    font-family: var(--font);
 }
 .home__outer__section2__left__inner__content__each__each{
     width:100%;
@@ -229,7 +229,7 @@
     align-items: center;
     font-size: 15px;
     justify-content: flex-start;
-    font-family: 'Pacifico', cursive;
+    font-family: var(--font);
 }
 .home__outer__section2__left__inner__button{
     width:100%;
@@ -245,7 +245,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: 'Pacifico', cursive;
+    font-family: var(--font);
     background-color: rgb(244, 72, 72);
     color: white;
     cursor: pointer;
@@ -292,5 +292,5 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: 'Pacifico', cursive;
+    font-family: var(--font);
 }

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Sofia+Sans&display=swap');
+
 
 .profile__outer{
     width:100%;
@@ -59,7 +59,7 @@
     height:fit-content;
     color: rgb(244, 72, 72);
     font-size: 20px;
-    font-family: 'Pacifico', cursive;
+    font-family: var(--font);
 }
 .profile__inner__each__left__content{
     width:100%;
@@ -83,7 +83,7 @@
     height:fit-content;
     outline: none;
     font-size: 1rem;
-    font-family: 'Pacifico', cursive;
+    font-family: var(--font);
 }
 .profile__inner__each__left__content__field{
     width:90%;
@@ -91,7 +91,7 @@
     border: none;
     outline: none;
     font-size: 15px;
-    font-family: 'Pacifico', cursive;
+    font-family: var(--font);
     background-color: rgba(198, 197, 197, 0.547);
 }
 .profile__inner__each__right{
@@ -101,7 +101,7 @@
 .profile__inner__each__left__content__each{
     width:95%;
     padding: 5px;
-    font-family: 'Pacifico', cursive;
+    font-family: var(--font);
 }
 .profile__line{
     width:100px;
@@ -130,7 +130,7 @@
     color: white;
     cursor: pointer;
     background-color: rgb(244, 72, 72);
-    font-family: 'Pacifico', cursive;
+    font-family: var(--font);
 }
 
 
@@ -183,7 +183,7 @@
     height:fit-content;
     font-size: 30px;
     font-weight: 800;
-    font-family: 'Pacifico', cursive;
+    font-family: var(--font);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -193,7 +193,7 @@
     height:fit-content;
     font-size: 25px;
     font-weight: 800;
-    font-family: 'Pacifico', cursive;
+    font-family: var(--font);
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -228,7 +228,7 @@
 .profile__inner__notification__addedme__each__name{
     width:fit-content;
     height:fit-content;
-    font-family: 'Pacifico', cursive;
+    font-family: var(--font);
 }
 .profile__inner__notification__addedme__each__about{
     width:400px;
@@ -243,7 +243,7 @@
     justify-content: center;
     color: white;
     border-radius: 50%;
-    font-family: 'Pacifico', cursive;
+    font-family: var(--font);
     cursor: pointer;
 }
 .profile__inner__notification__addedme__each__button:hover{

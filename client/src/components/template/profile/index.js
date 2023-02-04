@@ -614,7 +614,7 @@ const Profile = (props) => {
                                             {userData.user_motherTongue}
                                         </div>
                                     </div>
-                                    <div className='profile__inner__each__left__content' style={{ display: afterSubmit.before }}>
+                                    <div className='profile__inner__each__left__content__select' style={{ display: afterSubmit.before }}>
                                         <select onChange={(e)=>{setMotherTongue(e.target.value)}} className="profile__inner__each__left__content__select__gender">
                                             {
                                                 ProfileData.profile_Lang.map((ele)=>{
@@ -625,7 +625,6 @@ const Profile = (props) => {
                                                 })
                                             }
                                         </select>
-                                        {/* <input type="text" onChange={(e)=>{setMotherTongue(e.target.value)}} placeholder={motherTonguePlace} className='profile__inner__each__left__content__field' /> */}
                                     </div>
                                 </div>
                                 <div className='profile__inner__each__left'>
@@ -639,7 +638,7 @@ const Profile = (props) => {
                                             {userData.user_secLang}
                                         </div>
                                     </div>
-                                    <div className='profile__inner__each__left__content' style={{ display: afterSubmit.before }}>
+                                    <div className='profile__inner__each__left__content__select' style={{ display: afterSubmit.before }}>
                                         <select onChange={(e)=>{setSecLang(e.target.value)}} className="profile__inner__each__left__content__select__gender">
                                             {
                                                 ProfileData.profile_Lang.map((ele)=>{
@@ -654,7 +653,6 @@ const Profile = (props) => {
                                                 })
                                             }
                                         </select>
-                                        {/* <input type="text" onChange={(e)=>{setSecLang(e.target.value)}} placeholder={secLangPlace} className='profile__inner__each__left__content__field' /> */}
                                     </div>
                                 </div>
                             </div>
@@ -679,8 +677,8 @@ const Profile = (props) => {
                                     <div className='profile__inner__each__left__head'>
                                         Image
                                     </div>
-                                    <div className='profile__inner__each__left__content' style={{ display: afterSubmit.before }}>
-                                        <input type="file" id="img" name="img" className='profile__inner__each__left__content__field' onChange={(e)=>{setImage(e.target.value)}} accept="image/*"></input>
+                                    <div className='profile__inner__each__left__content' style={{ display: afterSubmit.before}}>
+                                        <input type="file" id="img" name="img" style={{paddingBottom:"20px"}} className='profile__inner__each__left__content__field' onChange={(e)=>{setImage(e.target.value)}} accept="image/*"></input>
                                     </div>
                                 </div>
                             </div>
