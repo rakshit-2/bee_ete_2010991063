@@ -239,14 +239,41 @@ const Seach = (props) => {
     }
 
 
+    // function checkRequested()
+    // {
+    //     for(var i=0;i<allData.length;i++)
+    //     {
+    //         for(var j=0;j<allData.data1)
+    //     }
+    // }
 
     function getSearch() {
         Axios.post('http://localhost:5000/api/search/user-get',
         {
             email: props.LoggedIn,
         }).then((res) => {
-            setAllData(res.data.data);
-            setAllDisplay(res.data.data);
+            var lis=[]
+            var all=res.data.data
+            var checker=res.data.data1.user_send
+            for(var i=0;i<all.length;i++)
+            {
+                var flag=0
+                
+                for(var j=0;j<checker.length;j++)
+                {
+                    if(checker[j].user_email===all[i].user_email)
+                    {
+                        flag=1;
+                        break
+                    }
+                }
+                if(flag!==1)
+                {
+                    lis.push(all[i])
+                }
+            }
+            setAllData(lis);
+            setAllDisplay(lis);
             setCardLoader(false)
         });
     }
@@ -587,11 +614,10 @@ const Seach = (props) => {
                                         </div>
                                         </>
                                     ):(
-
                                         allDisplay.map((ele)=>{
-
+                                            
                                             return(
-                                                <SearchCard1 ele={ele} />
+                                                <SearchCard1 ele={ele} LoggedIn={props.LoggedIn} />
                                             )
                                         })
                                         

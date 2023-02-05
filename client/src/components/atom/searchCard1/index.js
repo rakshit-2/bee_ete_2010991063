@@ -5,9 +5,38 @@ import twitter from './../../assets/image/twitter_logo.svg';
 // import { requirePropFactory } from '@mui/material';
 // import { display } from '@mui/system';
 // import image from './../../assets/images/home1.jpg';
-
+import Axios from 'axios';
+import { useState } from 'react';
 
 const SearchCard1=(props)=>{
+
+    const[reqDisplay,setReqDisplay]=useState({
+        connect:"flex",
+        req:"none"
+    })
+
+
+    function connectClicked(toEmail)
+    {
+        Axios.post('http://localhost:5000/api/search/connect-user',
+        {
+            email: props.LoggedIn,
+            toEmail:toEmail,
+        }).then((res) => {
+            setReqDisplay({connect:"none",req:"flex"})
+        });
+    }
+
+    function requestedClicked(toEmail)
+    {
+        Axios.post('http://localhost:5000/api/search/remove-user',
+        {
+            email: props.LoggedIn,
+            toEmail:toEmail,
+        }).then((res) => {
+            setReqDisplay({connect:"flex",req:"none"})
+        });
+    }
     
     return (
         <>
@@ -26,8 +55,11 @@ const SearchCard1=(props)=>{
                         </div>
                     </div>
                     <div className='search__inner__right__each__content__top__right'>
-                        <div className='search__inner__right__each__content__contact__button'>
+                        <div style={{display:reqDisplay.connect}} className='search__inner__right__each__content__contact__button' onClick={()=>{connectClicked(props.ele.user_email)}}>
                             Connect
+                        </div>
+                        <div style={{display:reqDisplay.req}} className='search__inner__right__each__content__contact__button' onClick={()=>{requestedClicked(props.ele.user_email)}}>
+                            Requested
                         </div>
                     </div>
                 </div>
