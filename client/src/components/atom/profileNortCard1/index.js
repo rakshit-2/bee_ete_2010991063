@@ -17,15 +17,14 @@ const ProfileNortCard1=(props)=>{
         <>
         <div className='profile__inner__notification__addedme__each'>
             <div className='profile__inner__notification__addedme__each__image'>
-                <img src={satyam} style={{width:"100%",height:"100%",borderRadius:"50%"}}/>
+                <img src={require(`./../../assets/image/${props.ele.user_image}`)} style={{width:"100%",height:"100%",borderRadius:"50%"}}/>
             </div>
             <div className=''>
                 <div className='profile__inner__notification__addedme__each__name'>
-                    Name
+                    {props.ele.user_name}
                 </div>
                 <div className='profile__inner__notification__addedme__each__about'>
-                    Hi i am Rakshit Sharma student at chitkara university
-                    Hi i am Rakshit Sharma student at chitkara university...
+                    {props.ele.user_about}
                 </div>
             </div>
                 <div className='profile__inner__notification__addedme__each__button' style={{backgroundColor:"rgb(6, 186, 87)"}}>

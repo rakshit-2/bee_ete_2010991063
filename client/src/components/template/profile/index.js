@@ -81,6 +81,7 @@ const Profile = (props) => {
                 if (res.data.data.user_updated === true) {
                     setAfterSubmit({ after: "flex", before: "none" });
                 }
+                console.log(userData)
                 setUserLoading(false)
             });
     }
@@ -778,7 +779,12 @@ const Profile = (props) => {
                                         Request Recived:
                                     </div>
                                     <div className='profile__inner__notification__addedme'>
-                                        <ProfileNortCard1 />
+                                        {
+                                            userData.user_recieve.map((ele)=>{
+                                                <ProfileNortCard1 ele={ele}/>
+                                            })
+                                        }
+                                        
                                     </div>
 
 
@@ -786,7 +792,15 @@ const Profile = (props) => {
                                         Request Sent:
                                     </div>
                                     <div className='profile__inner__notification__addedme'>
-                                        <ProfileNortCard1 />
+                                        {
+                                            userData.user_send.map((ele)=>{
+                                                return(
+                                                    <ProfileNortCard1 ele={ele}/>
+                                                )
+                                                
+                                            })
+                                        }
+                                        
                                     </div>
                                 </div>
 
