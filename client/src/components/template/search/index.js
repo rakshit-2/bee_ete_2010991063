@@ -20,39 +20,17 @@ import Select from '@mui/material/Select';
 import AllData from '../../assets/store/allData';
 import ProfileData from '../../assets/store/profileData';
 import SearchCard1 from '../../atom/searchCard1';
+import LoadingScreen from './../../atom/loadingScreen';
 
 const Seach = (props) => {
     const navigate = useNavigate();
+    const [allData,setAllData]=useState([])
+    const [allDisplay,setAllDisplay]=useState([])
+    const [cardLoader,setCardLoader]=useState(true);
 
 
-    function getSearch() {
-        Axios.post('http://localhost:5000/api/search/user-get',
-        {
-            email: props.LoggedIn,
-        }).then((res) => {
-            
-        });
-    }
-
-
-
-    useEffect(() => {
-        if (props.LoggedInStatus === true) {
-            getSearch();
-        }
-        else {
-            navigate("/auth")
-        }
-    }, []);
-
-
-
-
-
-
-
-    const [height, setHeight] = useState([155, 165]);
-    const [salary, setSalary] = useState([10, 20]);
+    const [height, setHeight] = useState([150, 200]);
+    const [salary, setSalary] = useState([1, 50]);
     const [marstat, setMarstat] = useState("All");
 
   
@@ -79,6 +57,217 @@ const Seach = (props) => {
     const [Libra, setLibra] = useState(false);
     const [Scorpio, setScorpio] = useState(false);
     const [Sagittarius, setSagittarius] = useState(false);
+    
+    
+    
+    function intersection() {
+        var result = [];
+        var lists;
+    
+        if(arguments.length === 1) {
+        lists = arguments[0];
+        } else {
+        lists = arguments;
+        }
+    
+        for(var i = 0; i < lists.length; i++) {
+        var currentList = lists[i];
+        for(var y = 0; y < currentList.length; y++) {
+            var currentValue = currentList[y];
+            if(result.indexOf(currentValue) === -1) {
+            var existsInAll = true;
+            for(var x = 0; x < lists.length; x++) {
+                if(lists[x].indexOf(currentValue) === -1) {
+                existsInAll = false;
+                break;
+                }
+            }
+            if(existsInAll) {
+                result.push(currentValue);
+            }
+            }
+        }
+        }
+        return result;
+    }
+    
+    
+    function runFilter()
+    {
+        setCardLoader(true);
+        var li1=[];
+        for(var i=0;i<allData.length;i++)
+        {
+            if(allData[i].user_age>=props.age[0] && allData[i].user_age<=props.age[1])
+            {
+                li1.push(allData[i]);
+            }
+        }
+        
+
+
+
+        var li2=[];
+        for(var i=0;i<allData.length;i++)
+        {
+            if(allData[i].user_height>=height[0] && allData[i].user_height<=height[1])
+            {
+                li2.push(allData[i]);
+            }
+        }
+
+
+
+
+
+        var li3=[]
+        if(props.location==="All")
+        {
+            li3=allData;
+        }
+        else
+        {
+            for(var i=0;i<allData.length;i++)
+            {
+                if(props.location===allData[i].user_state)
+                {
+                    li3.push(allData[i]);
+                }
+            }
+        }
+
+
+
+        var li4=[]
+        if(props.religion==="All")
+        {
+            li4=allData;
+        }
+        else
+        {
+            for(var i=0;i<allData.length;i++)
+            {
+                if(props.religion===allData[i].user_religion)
+                {
+                    li4.push(allData[i]);
+                }
+            }
+        }
+        
+        var checkli5=[langHindi,langEnglish,langPunjabi,langTelugu,langMarathi
+        ,langKannada,langUrdu]
+        var checkli5lang=["Hindi","English","Punjabi","Telugu","Marathi"
+            ,"Kannada","Urdu"]
+        var li5=[]
+        for(var i=0;i<checkli5.length;i++)
+        {
+            if(checkli5[i]===true)
+            {
+                for(var j=0;j<allData.length;j++)
+                {
+                    if(allData[j].user_motherTongue===checkli5lang[i])
+                    {
+                        li5.push(allData[j])
+                    }
+                }
+            }
+        }
+        if(li5.length===0)
+        {
+            li5=allData;
+        }
+        
+
+
+
+        var li6=[]
+        if(marstat==="All")
+        {
+            li6=allData;
+        }
+        else
+        {
+            for(var i=0;i<allData.length;i++)
+            {
+                if(marstat===allData[i].user_marstat)
+                {
+                    li6.push(allData[i]);
+                }
+            }
+        }
+
+
+        var li7=[];
+        for(var i=0;i<allData.length;i++)
+        {
+            if(allData[i].user_sallary>=salary[0] && allData[i].user_sallary<=salary[1])
+            {
+                li7.push(allData[i]);
+            }
+        }
+
+
+        var checkli8=[Capricorn,Aquarius,Pisces,Aries,Taurus
+        ,Gemini,Cancer,Leo,Virgo,Libra,Scorpio,Sagittarius]
+        var checkli8zodiac=["Capricorn","Aquarius","Pisces","Aries","Taurus"
+            ,"Gemini","Cancer","Leo","Virgo","Libra","Scorpio","Sagittarius"]
+        var li8=[]
+        for(var i=0;i<checkli8.length;i++)
+        {
+            if(checkli8[i]===true)
+            {
+                for(var j=0;j<allData.length;j++)
+                {
+                    if(allData[j].user_zodiac===checkli8zodiac[i])
+                    {
+                        li8.push(allData[j])
+                    }
+                }
+            }
+        }
+        if(li8.length===0)
+        {
+            li8=allData;
+        }
+
+
+        
+        var check=intersection(li1,li2,li3,li4,li5,li6,li7,li8);
+        setAllDisplay(check);
+        setCardLoader(false);
+        return;
+    }
+
+
+
+    function getSearch() {
+        Axios.post('http://localhost:5000/api/search/user-get',
+        {
+            email: props.LoggedIn,
+        }).then((res) => {
+            setAllData(res.data.data);
+            setAllDisplay(res.data.data);
+            setCardLoader(false)
+        });
+    }
+
+
+
+    useEffect(() => {
+        if (props.LoggedInStatus === true) {
+            getSearch();
+            runFilter()
+        }
+        else {
+            navigate("/auth")
+        }
+    }, []);
+
+
+
+
+
+
 
     const handleChangeHeight = (event, newValue) => {
         setHeight(newValue);
@@ -152,18 +341,15 @@ const Seach = (props) => {
                 setLeo(check);
                 break;
             case 8:
-                setAries(check);
-                break;
-            case 9:
                 setVirgo(check);
                 break;
-            case 10:
+            case 9:
                 setLibra(check);
                 break;
-            case 11:
+            case 10:
                 setScorpio(check);
                 break;
-            case 12:
+            case 11:
                 setSagittarius(check);
                 break;
             default:
@@ -173,17 +359,27 @@ const Seach = (props) => {
 
 
 
+
+
+
+
+
+
+
+
+
     return (
         <>
             <Navbar LoggedIn={props.LoggedIn} LoggedInStatus={props.LoggedInStatus} />
-            <Parallax blur={1} bgImage={back} bgImageAlt="the cat" strength={200}>
+            <Parallax blur={5} bgImage={back} bgImageAlt="the cat" strength={500}>
                 <div className='search__outer'>
                     <div className='search__inner'>
-                        <div className='search__inner__head'>
+                        {/* <div className='search__inner__head'>
                             Search Profiles
-                        </div>
+                        </div> */}
                         <div className='search__inner__display'>
                             {/* <div className='search__inner__display__filter__outer'> */}
+                                <div className='search__inner__display__filter2'></div>
                                 <div className='search__inner__display__filter'>
                                     <div className='search__inner__display__filter__top'>
                                         
@@ -372,7 +568,7 @@ const Seach = (props) => {
 
                                     </div>
                                     <div className='search__inner__display__filter__bottom'>
-                                        <div className='search__inner__display__filter__bottom__button'>
+                                        <div className='search__inner__display__filter__bottom__button' onClick={()=>{runFilter()}}>
                                             Filter
                                         </div>
                                     </div>
@@ -380,7 +576,29 @@ const Seach = (props) => {
                             {/* </div> */}
                             
                             <div className='search__inner__display__content'>
-                                <SearchCard1/>
+                                {
+                                    cardLoader?(
+                                        <>
+                                        <div className='loading__outer' style={{ width: "100%", height: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                                            <div className='loading__outer__inner'>
+                                                <LoadingScreen />
+                                            </div>
+
+                                        </div>
+                                        </>
+                                    ):(
+
+                                        allDisplay.map((ele)=>{
+
+                                            return(
+                                                <SearchCard1 ele={ele} />
+                                            )
+                                        })
+                                        
+                                        
+                                    )
+                                }
+                                
                             </div>
                         </div>
                     </div>

@@ -1,18 +1,18 @@
 const AllData=
 {
     all_zodiac:[
-        {id:1,label:"Capricorn"},
-        {id:2,label:"Aquarius"},
-        {id:3,label:"Pisces"},
-        {id:4,label:"Aries"},
-        {id:5,label:"Taurus"},
-        {id:6,label:"Gemini"},
-        {id:7,label:"Cancer"},
-        {id:8,label:"Leo"},
-        {id:9,label:"Virgo"},
-        {id:10,label:"Libra"},
-        {id:11,label:"Scorpio"},
-        {id:12,label:"Sagittarius"},
+        {id:0,label:"Capricorn"},
+        {id:1,label:"Aquarius"},
+        {id:2,label:"Pisces"},
+        {id:3,label:"Aries"},
+        {id:4,label:"Taurus"},
+        {id:5,label:"Gemini"},
+        {id:6,label:"Cancer"},
+        {id:7,label:"Leo"},
+        {id:8,label:"Virgo"},
+        {id:9,label:"Libra"},
+        {id:10,label:"Scorpio"},
+        {id:11,label:"Sagittarius"},
 
     ],
     all_religion:[

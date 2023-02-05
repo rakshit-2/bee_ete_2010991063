@@ -20,8 +20,8 @@ const App=(props)=> {
 
 
   // globalStates
-  const[LoggedIn,setLoggedIn]=useState("");
-  const[LoggedInStatus,setLoggedInStatus]=useState(false);
+  const[LoggedIn,setLoggedIn]=useState("saanvi@gmail.com");
+  const[LoggedInStatus,setLoggedInStatus]=useState(true);
   
   
   function LoggedInStatusCheck(x,data)
@@ -36,7 +36,7 @@ const App=(props)=> {
       return `${value}`;
   }
 
-  const [age, setAge] = useState([20, 30]);
+  const [age, setAge] = useState([20, 50]);
   const [religion, setReligion] = useState('All');
   const [location, setLocation] = useState('All');
 

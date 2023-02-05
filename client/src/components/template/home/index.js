@@ -27,6 +27,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import ProfileData from '../../assets/store/profileData';
+import AllData from '../../assets/store/allData';
 
 
 
@@ -166,7 +167,7 @@ const Home = (props) => {
                                                     onChange={props.handleChangeLocation}
                                                     >
                                                     {
-                                                        ProfileData.profile_state.map((ele)=>{
+                                                        AllData.all_state.map((ele)=>{
                                                             return(
                                                                 <MenuItem key={ele.id} value={ele.label}>{ele.label}</MenuItem>
                                                             )
@@ -189,7 +190,7 @@ const Home = (props) => {
                                                     label=""
                                                     onChange={props.handleChangeReligion}>
                                                     {
-                                                        ProfileData.profile_religion.map((ele)=>{
+                                                        AllData.all_religion.map((ele)=>{
                                                             return(
                                                                 <MenuItem key={ele.id} value={ele.label}>{ele.label}</MenuItem>
                                                             )
