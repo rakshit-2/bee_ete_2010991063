@@ -76,7 +76,9 @@ let ele = new schema({
 	user_secLang:{
 		type:String
 	},
-
+	user_count:{
+		type:Number
+	},
 	user_send:
     {
         type:[Object],
