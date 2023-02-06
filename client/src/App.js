@@ -10,6 +10,7 @@ import Profile from './components/template/profile/index'
 import Search from './components/template/search/index'
 import Auth from './components/template/auth/index'
 
+
 const App=(props)=> {
   AOS.init({
     offset: 100,
@@ -20,8 +21,8 @@ const App=(props)=> {
 
 
   // globalStates
-  const[LoggedIn,setLoggedIn]=useState("saanvi@gmail.com");
-  const[LoggedInStatus,setLoggedInStatus]=useState(true);
+  const[LoggedIn,setLoggedIn]=useState("");
+  const[LoggedInStatus,setLoggedInStatus]=useState(false);
   
   
   function LoggedInStatusCheck(x,data)
@@ -31,6 +32,7 @@ const App=(props)=> {
   }
 
 
+  
 
   function valuetext(value) {
       return `${value}`;

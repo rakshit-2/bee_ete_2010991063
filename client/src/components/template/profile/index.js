@@ -13,12 +13,18 @@ import { faBell } from '@fortawesome/free-solid-svg-icons';
 import { faList } from '@fortawesome/free-solid-svg-icons';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { faXmark,faCreditCard } from '@fortawesome/free-solid-svg-icons';
-import { faPaypal,faGooglePay,faApplePay,faAmazonPay } from '@fortawesome/free-brands-svg-icons';
+import { faPaypal,faGooglePay,faApplePay,faAmazonPay, faWhatsapp,faFacebook,faSnapchat,faInstagram,faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import back from './../../assets/image/home_back10.jpg'
 import { HashLink } from 'react-router-hash-link';
 import satyam from './../../assets/image/satyam.jpeg';
 import ProfileNortCard1 from '../../atom/profileNortCard1';
 import TextField from '@mui/material/TextField';
+import undraw_flower from './../../assets/image/undraw_flower.svg';
+import undraw_string from './../../assets/image/undraw_string.svg';
+import empty from './../../assets/image/empty.svg'
+import empty1 from './../../assets/image/Waiting-pana.svg'
+import empty2 from './../../assets/image/Waiting-bro.svg'
+
 
 const Profile = (props) => {
     const navigate = useNavigate();
@@ -61,14 +67,38 @@ const Profile = (props) => {
         val:0
     })
 
-
+    const [counter,setCounter]=useState(0)
     const [userData, setUserdata] = useState({})
     const [userLoading, setUserLoading] = useState(true)
     const [afterSubmit, setAfterSubmit] = useState({
         after: "none",
         before: 'flex'
     });
+    const [accProfileLoading,setAccProfileLoading]=useState(false)
+    const [subCountLoading,setSubCountLoading]=useState(false)
 
+    const [profileScroll,setProfileScroll]=useState({
+        height:"fit-content",
+        scroll:"scroll"
+    });
+    const [fullProfileDisplay,setFullProfileDisplay]=useState("none")
+    const [dataFullProfile,setDataFullProfile]=useState({})
+
+    function fullprofiledisplayChange(x,ele)
+    {
+        if(x)
+        {
+            setFullProfileDisplay("flex");
+            setProfileScroll({height:"100vh",scroll:"hidden"})
+            setDataFullProfile(ele)
+        }
+        else
+        {
+            setFullProfileDisplay("none");
+            setProfileScroll({height:"fit-content",scroll:"scroll"})
+            setDataFullProfile(userData)
+        }
+    }
 
 
     function GetProfile() {
@@ -78,13 +108,29 @@ const Profile = (props) => {
                 email: props.LoggedIn,
             }).then((res) => {
                 setUserdata(res.data.data)
+                setDataFullProfile(res.data.data)
                 if (res.data.data.user_updated === true) {
                     setAfterSubmit({ after: "flex", before: "none" });
                 }
-                console.log(userData)
                 setUserLoading(false)
             });
     }
+
+
+    function AcceptedProfile() {
+        setAccProfileLoading(true);
+        Axios.post('http://localhost:5000/api/profile/get-data',
+            {
+                email: props.LoggedIn,
+            }).then((res) => {
+                setUserdata(res.data.data)
+                if (res.data.data.user_updated === true) {
+                    setAfterSubmit({ after: "flex", before: "none" });
+                }
+                setAccProfileLoading(false)
+            });
+    }
+
 
     useEffect(() => {
         if (props.LoggedInStatus === true) {
@@ -288,81 +334,217 @@ const Profile = (props) => {
     return (
         <>
             <Navbar LoggedIn={props.LoggedIn} LoggedInStatus={props.LoggedInStatus} />
-            <div className='payment__outer' style={{display:paymentClicked.view}}>
-                <div className='payment__inner'>
-                    <div className='payment__inner__inner'>
-                        <div className='payment__inner__inner__heading'>
-                            <div className='payment__inner__inner__heading__head'>
-                                PAYMENT DETAILS
-                            </div>
-                            <div className='payment__inner__inner__heading__close' onClick={()=>{setPaymentClicked({view:"none",val:0})}}>
-                                <FontAwesomeIcon icon={faXmark} size="xl"/>
-                            </div>
-                        </div>
-                        <div className='payment__inner__inner2'>
-                            <FontAwesomeIcon icon={faApplePay} size="3x" color="black" style={{cursor:"pointer"}}/>
-                            <FontAwesomeIcon icon={faAmazonPay} size="3x" color="black"  style={{cursor:"pointer"}}/>
-                            <FontAwesomeIcon icon={faPaypal} size="3x" color="black"  style={{cursor:"pointer"}}/>
-                            <FontAwesomeIcon icon={faGooglePay} size="3x" color="black"  style={{cursor:"pointer"}}/>
-                        </div>
-                        <div className='payment__inner__part'>
-                            <div className='payment__inner__part__line'>
+            {
+                // props.LoggedInStatus ? (
+                userLoading ? (
+                        <></>
+                    ) : (
+                        <>
+                        <div className='payment__outer' style={{display:fullProfileDisplay}}>
+                            <div className='payment__inner2'>
+                                <div className='payment__inner__eachProfile'>
+                                    <div className='payment__inner__eachProfile__top'>
+                                    {/* <img src={satyam} style={{width:"200px",height:"200px",borderRadius:"50%",border:"10px solid rgba(212, 28, 28, 0.684)",boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",marginLeft:"2rem"}}/> */}
+                                        <img src={require(`./../../assets/image/${dataFullProfile.user_image}`)} style={{width:"200px",height:"200px",borderRadius:"50%",border:"10px solid rgba(212, 28, 28, 0.684)",boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",marginLeft:"2rem"}}/>
+                                        <div className='payment__inner__eachProfile__top__close'>
+                                            <div className='payment__inner__eachProfile__top__close__close' onClick={()=>{fullprofiledisplayChange(false,userData)}}>
+                                                <FontAwesomeIcon icon={faXmark} size="2x" style={{cursor:"pointer"}}/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className='payment__inner__eachProfile__bottom'>
+                                        <div className='payment__inner__eachProfile__bottom__each'>
+                                            <fieldset className='payment__inner__eachProfile__bottom__each__left'>
+                                                <legend className='legend__font'>Basic Info:</legend>
+                                                <div className='payment__inner__eachProfile__bottom__each__left__text'>
+                                                <span className='payment__inner__eachProfile__bottom__each__left__texthead'>Name:</span> {dataFullProfile.user_name}
+                                                </div>
+                                                <div className='payment__inner__eachProfile__bottom__each__left__text'>
+                                                <span className='payment__inner__eachProfile__bottom__each__left__texthead'>Date Of Birth:</span> {dataFullProfile.user_dob}
+                                                </div>
+                                                <div className='payment__inner__eachProfile__bottom__each__left__text'>
+                                                <span className='payment__inner__eachProfile__bottom__each__left__texthead'>Age:</span> {dataFullProfile.user_age}
+                                                </div>
+                                                <div className='payment__inner__eachProfile__bottom__each__left__text'>
+                                                <span className='payment__inner__eachProfile__bottom__each__left__texthead'>Gender:</span> {dataFullProfile.user_gender}
+                                                </div>
+                                                <div className='payment__inner__eachProfile__bottom__each__left__text'>
+                                                <span className='payment__inner__eachProfile__bottom__each__left__texthead'>Height:</span> {dataFullProfile.user_height}
+                                                </div>
+                                            </fieldset>
+                                            <fieldset className='payment__inner__eachProfile__bottom__each__left'>
+                                                <legend className='legend__font'>Location Info:</legend>
+                                                <div className='payment__inner__eachProfile__bottom__each__left__text'>
+                                                <span className='payment__inner__eachProfile__bottom__each__left__texthead'>Country:</span> India
+                                                </div>
+                                                <div className='payment__inner__eachProfile__bottom__each__left__text'>
+                                                <span className='payment__inner__eachProfile__bottom__each__left__texthead'>State:</span> {dataFullProfile.user_state}
+                                                </div>
+                                                <div className='payment__inner__eachProfile__bottom__each__left__text'>
+                                                <span className='payment__inner__eachProfile__bottom__each__left__texthead'>Address:</span> {dataFullProfile.user_address}
+                                                </div>
+                                            </fieldset>
+                                            <fieldset className='payment__inner__eachProfile__bottom__each__left'>
+                                                <legend className='legend__font'>Hobby Info:</legend>
+                                                <div className='payment__inner__eachProfile__bottom__each__left__text'>
+                                                <span className='payment__inner__eachProfile__bottom__each__left__texthead'>Hobbies:</span> {dataFullProfile.user_hobby}
+                                                </div>
+                                            </fieldset>
+                                            <fieldset className='payment__inner__eachProfile__bottom__each__left'>
+                                                <legend className='legend__font'>Contact Info:</legend>
+                                                <div className='payment__inner__eachProfile__bottom__each__left__text'>
+                                                <span className='payment__inner__eachProfile__bottom__each__left__texthead'>Contact:</span> 91+ {dataFullProfile.user_contact}
+                                                </div>
+                                                <div className='payment__inner__eachProfile__bottom__each__left__text'>
+                                                <span className='payment__inner__eachProfile__bottom__each__left__texthead'>Email:</span> {dataFullProfile.user_email}
+                                                </div>
 
+                                            </fieldset>
+                                        </div>
+                                        <div className='payment__inner__eachProfile__bottom__each'>
+                                            <fieldset className='payment__inner__eachProfile__bottom__each__left'>
+                                                <legend className='legend__font'>About Me:</legend>
+                                                <div className='payment__inner__eachProfile__bottom__each__left__text'>
+                                                    {dataFullProfile.user_about}
+                                                </div>
+                                            </fieldset>
+                                            <fieldset className='payment__inner__eachProfile__bottom__each__left'>
+                                                <legend className='legend__font'>Education Info:</legend>
+                                                <div className='payment__inner__eachProfile__bottom__each__left__text'>
+                                                <span className='payment__inner__eachProfile__bottom__each__left__texthead'>Graduation:</span> {dataFullProfile.user_edu}
+                                                </div>
+                                                <div className='payment__inner__eachProfile__bottom__each__left__text'>
+                                                <span className='payment__inner__eachProfile__bottom__each__left__texthead'>Occupation:</span> {dataFullProfile.user_occu}
+                                                </div>
+                                                <div className='payment__inner__eachProfile__bottom__each__left__text'>
+                                                <span className='payment__inner__eachProfile__bottom__each__left__texthead'>Salary:</span> {dataFullProfile.user_sallary}
+                                                </div>
+                                                <div className='payment__inner__eachProfile__bottom__each__left__text'>
+                                                <span className='payment__inner__eachProfile__bottom__each__left__texthead'>Marriage Status:</span> {dataFullProfile.user_marstat}
+                                                </div>
+                                            </fieldset>
+                                            <fieldset className='payment__inner__eachProfile__bottom__each__left'>
+                                                <legend className='legend__font'>Religion Info:</legend>
+                                                <div className='payment__inner__eachProfile__bottom__each__left__text'>
+                                                <span className='payment__inner__eachProfile__bottom__each__left__texthead'>Religion:</span> {dataFullProfile.user_religion}
+                                                </div>
+                                                <div className='payment__inner__eachProfile__bottom__each__left__text'>
+                                                <span className='payment__inner__eachProfile__bottom__each__left__texthead'>Zodiac Sign:</span> {dataFullProfile.user_zodiac}
+                                                </div>
+                                                <div className='payment__inner__eachProfile__bottom__each__left__text'>
+                                                <span className='payment__inner__eachProfile__bottom__each__left__texthead'>Mother Tongue:</span> {dataFullProfile.user_motherTongue}
+                                                </div>
+                                            </fieldset>
+                                            <fieldset className='payment__inner__eachProfile__bottom__each__left'>
+                                                <legend className='legend__font'>Marital Status:</legend>
+                                                <div className='payment__inner__eachProfile__bottom__each__left__text'>
+                                                <span className='payment__inner__eachProfile__bottom__each__left__texthead'>Status:</span> {dataFullProfile.user_marstat}
+                                                </div>
+                                            </fieldset>
+                                            <div className='payment__inner__eachProfile__bottom__each__left' style={{flexDirection:"row",justifyContent:"space-around",alignItems:"center",width:"50%"}}>
+                                                <FontAwesomeIcon icon={faWhatsapp} size="2x" style={{cursor:"pointer"}}/>
+                                                <FontAwesomeIcon icon={faFacebook} size="2x" style={{cursor:"pointer"}}/>
+                                                <FontAwesomeIcon icon={faSnapchat} size="2x" style={{cursor:"pointer"}}/>
+                                                <FontAwesomeIcon icon={faLinkedin} size="2x" style={{cursor:"pointer"}}/>
+                                                <FontAwesomeIcon icon={faInstagram} size="2x" style={{cursor:"pointer"}}/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            or
-                            <div className='payment__inner__part__line'>
+                        </div>
+                        <div className='payment__outer' style={{display:paymentClicked.view}}>
+                            <div className='payment__inner'>
+                                <div className='payment__inner__inner'>
+                                    <div className='payment__inner__inner__heading'>
+                                        <div className='payment__inner__inner__heading__head'>
+                                            PAYMENT DETAILS
+                                        </div>
+                                        <div className='payment__inner__inner__heading__close' onClick={()=>{setPaymentClicked({view:"none",val:0})}}>
+                                            <FontAwesomeIcon icon={faXmark} size="xl"/>
+                                        </div>
+                                    </div>
+                                    <div className='payment__inner__inner2'>
+                                        <FontAwesomeIcon icon={faApplePay} size="3x" color="black" style={{cursor:"pointer"}}/>
+                                        <FontAwesomeIcon icon={faAmazonPay} size="3x" color="black"  style={{cursor:"pointer"}}/>
+                                        <FontAwesomeIcon icon={faPaypal} size="3x" color="black"  style={{cursor:"pointer"}}/>
+                                        <FontAwesomeIcon icon={faGooglePay} size="3x" color="black"  style={{cursor:"pointer"}}/>
+                                    </div>
+                                    <div className='payment__inner__part'>
+                                        <div className='payment__inner__part__line'>
 
+                                        </div>
+                                        or
+                                        <div className='payment__inner__part__line'>
+
+                                        </div>
+                                    </div>
+                                    <div className='payment__inner__inner__inner'>
+                                        <div className='payment__inner__inner__each'>
+                                            <div className='payment__inner__inner__each__head'>
+                                                Cardholder Name
+                                            </div>
+                                            <div className='payment__inner__inner__each__field'>
+                                                <input type="text" className='payment__inner__inner__each__field__each'/>
+                                            </div>
+                                            
+                                        </div>
+                                        <div className='payment__inner__inner__each'>
+                                            <div className='payment__inner__inner__each__head'>
+                                                Card Number
+                                            </div>
+                                            <div className='payment__inner__inner__each__field'>
+                                                <input type="text" className='payment__inner__inner__each__field__each'/>
+                                            </div>
+                                            
+                                        </div>
+                                        <div className='payment__inner__inner__each2'>
+                                            <div className='payment__inner__inner__each2__left'>
+                                                <div className='payment__inner__inner__each__head'>
+                                                    EXP/DATE
+                                                </div>
+                                                <div className='payment__inner__inner__each__field'>
+                                                    <input type="text" className='payment__inner__inner__each__field__each'/>
+                                                </div>
+                                            </div>
+                                            <div className='payment__inner__inner__each2__left'>
+                                                <div className='payment__inner__inner__each__head'>
+                                                    CVV
+                                                </div>
+                                                <div className='payment__inner__inner__each__field'>
+                                                    <input type="text" className='payment__inner__inner__each__field__each'/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className='payment__inner__inner__button'>
+                                            <div className='payment__inner__inner__button__each' onClick={()=>{
+                                                paidClicked(paymentClicked.val);
+                                                if(paymentClicked.val==19)
+                                                {
+                                                    setCounter(counter+5);
+                                                }
+                                                else if(paymentClicked.val==29)
+                                                {
+                                                    setCounter(counter+10);
+                                                }
+                                                else
+                                                {
+                                                    setCounter(counter+20);
+                                                }
+                                                setPaymentClicked({view:"none",val:0})}}>
+                                                <FontAwesomeIcon icon={faCreditCard} size="md" color="white" /> ${paymentClicked.val}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
                             </div>
                         </div>
-                        <div className='payment__inner__inner__inner'>
-                            <div className='payment__inner__inner__each'>
-                                <div className='payment__inner__inner__each__head'>
-                                    Cardholder Name
-                                </div>
-                                <div className='payment__inner__inner__each__field'>
-                                    <input type="text" className='payment__inner__inner__each__field__each'/>
-                                </div>
-                                
-                            </div>
-                            <div className='payment__inner__inner__each'>
-                                <div className='payment__inner__inner__each__head'>
-                                    Card Number
-                                </div>
-                                <div className='payment__inner__inner__each__field'>
-                                    <input type="text" className='payment__inner__inner__each__field__each'/>
-                                </div>
-                                
-                            </div>
-                            <div className='payment__inner__inner__each2'>
-                                <div className='payment__inner__inner__each2__left'>
-                                    <div className='payment__inner__inner__each__head'>
-                                        EXP/DATE
-                                    </div>
-                                    <div className='payment__inner__inner__each__field'>
-                                        <input type="text" className='payment__inner__inner__each__field__each'/>
-                                    </div>
-                                </div>
-                                <div className='payment__inner__inner__each2__left'>
-                                    <div className='payment__inner__inner__each__head'>
-                                        CVV
-                                    </div>
-                                    <div className='payment__inner__inner__each__field'>
-                                        <input type="text" className='payment__inner__inner__each__field__each'/>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='payment__inner__inner__button'>
-                                <div className='payment__inner__inner__button__each' onClick={()=>{paidClicked(paymentClicked.val);setPaymentClicked({view:"none",val:0})}}>
-                                    <FontAwesomeIcon icon={faCreditCard} size="md" color="white" /> ${paymentClicked.val}
-                                </div>
-                            </div>
-                        </div>
-                        
-                    </div>
-                </div>
-            </div>
+                        </>
+                    )
+            }
             <Parallax blur={5} bgImage={back} bgImageAlt="the cat" strength={500}>
-                <div className='profile__outer'>
+                <div className='profile__outer' style={{height:profileScroll.height,overflowY:profileScroll.scroll}}>
                     {
                         // props.LoggedInStatus ? (
                         userLoading ? (
@@ -768,6 +950,29 @@ const Profile = (props) => {
                                 </div>
 
 
+                                <div className='profile__inner__notification' id="notification">
+                                    <div className='profile__inner__notification__head'>
+                                        Perfect Match
+                                    </div>
+                                    <div className='profile__inner__nav__line'></div>
+                                    <div className='profile__inner__notification__addedme'>
+                                        {
+                                            userData.user_accepted.length===0?(
+                                                <>
+                                                <img src={empty1} style={{width:"200px",height:"200px"}}/>
+                                                </>
+                                            ):(
+                                                userData.user_accepted.map((ele)=>{
+                                                    return(
+                                                        <ProfileNortCard1 fullprofiledisplayChange={fullprofiledisplayChange}  accepted={false} flag={false}  ele={ele}  LoggedIn={props.LoggedIn} GetProfile={GetProfile} AcceptedProfile={AcceptedProfile}/>
+                                                    )
+                                                    
+                                                })
+                                            )
+                                            
+                                        }
+                                    </div>
+                                </div>
 
 
                                 <div className='profile__inner__notification' id="notification">
@@ -780,9 +985,19 @@ const Profile = (props) => {
                                     </div>
                                     <div className='profile__inner__notification__addedme'>
                                         {
-                                            userData.user_recieve.map((ele)=>{
-                                                <ProfileNortCard1 ele={ele}/>
-                                            })
+                                            userData.user_recieve.length===0?(
+                                                <>
+                                                <img src={empty} style={{width:"200px",height:"200px"}}/>
+                                                </>
+                                            ):(
+                                                userData.user_recieve.map((ele)=>{
+                                                    return(
+                                                        <ProfileNortCard1 accepted={true} flag={false}  ele={ele}  LoggedIn={props.LoggedIn} GetProfile={GetProfile} AcceptedProfile={AcceptedProfile}/>
+                                                    )
+                                                    
+                                                })
+                                            )
+                                            
                                         }
                                         
                                     </div>
@@ -793,12 +1008,19 @@ const Profile = (props) => {
                                     </div>
                                     <div className='profile__inner__notification__addedme'>
                                         {
-                                            userData.user_send.map((ele)=>{
-                                                return(
-                                                    <ProfileNortCard1 ele={ele}/>
-                                                )
-                                                
-                                            })
+                                            userData.user_send.length===0?(
+                                                <>
+                                                <img src={empty2} style={{width:"200px",height:"200px"}}/>
+                                                </>
+                                            ):(
+                                                userData.user_send.map((ele)=>{
+                                                    return( 
+                                                        <ProfileNortCard1 accepted={true} flag={true} ele={ele} LoggedIn={props.LoggedIn}  GetProfile={GetProfile} AcceptedProfile={AcceptedProfile}/>
+                                                    )
+                                                    
+                                                })
+                                            )
+                                            
                                         }
                                         
                                     </div>
@@ -810,7 +1032,7 @@ const Profile = (props) => {
                                     </div>
                                     <div className='profile__inner__nav__line'></div>
                                     <div className='profile__inner__notification__head' style={{fontSize:"18px"}}>
-                                        Your Current Request Count: {userData.user_count}
+                                        Your Current Request Count: {userData.user_count+counter}
                                     </div>
                                     <div class="snip1214">
                                         <div class="plan">

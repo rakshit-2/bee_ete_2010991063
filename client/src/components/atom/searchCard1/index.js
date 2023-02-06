@@ -23,7 +23,15 @@ const SearchCard1=(props)=>{
             email: props.LoggedIn,
             toEmail:toEmail,
         }).then((res) => {
-            setReqDisplay({connect:"none",req:"flex"})
+            if(res.data.message==="Subscription Over")
+            {
+                alert("Subscription Over Add more from Profile!!")
+            }
+            else
+            {
+                setReqDisplay({connect:"none",req:"flex"})
+            }
+            
         });
     }
 

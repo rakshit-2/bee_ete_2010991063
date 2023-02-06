@@ -272,8 +272,46 @@ const Seach = (props) => {
                     lis.push(all[i])
                 }
             }
-            setAllData(lis);
-            setAllDisplay(lis);
+            var checker1=res.data.data1.user_recieve
+            var lis1=[]
+            for(var i=0;i<lis.length;i++)
+            {
+                var flag=0
+                
+                for(var j=0;j<checker1.length;j++)
+                {
+                    if(checker1[j].user_email===lis[i].user_email)
+                    {
+                        flag=1;
+                        break
+                    }
+                }
+                if(flag!==1)
+                {
+                    lis1.push(lis[i])
+                }
+            }
+            var checker2=res.data.data1.user_accepted
+            var lis2=[]
+            for(var i=0;i<lis1.length;i++)
+            {
+                var flag=0
+                
+                for(var j=0;j<checker2.length;j++)
+                {
+                    if(checker2[j].user_email===lis1[i].user_email)
+                    {
+                        flag=1;
+                        break
+                    }
+                }
+                if(flag!==1)
+                {
+                    lis2.push(lis1[i])
+                }
+            }
+            setAllData(lis2);
+            setAllDisplay(lis2);
             setCardLoader(false)
         });
     }

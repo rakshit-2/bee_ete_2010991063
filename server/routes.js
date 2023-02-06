@@ -431,20 +431,36 @@ router.post("/search/connect-user", async (req, res) => {
 	{
 		const ele1=await USER.findOne({user_email:email}).exec();
 		const ele2=await USER.findOne({user_email:toEmail}).exec();
-		const check_email1 = { user_email: email };
-		const check_update1= 
-		{ $push: 
-			{ user_send: ele2 } 
+		if(ele1.user_count<=0)
+		{
+			Logger.Logg.success("Req not sent Subscription over!!")
+			res.status(200).send({message:"Subscription Over"})
 		}
-		const check_email2 = { user_email: toEmail };
-		const check_update2= 
-		{ $push: 
-			{ user_recieve: ele1 } 
+		else
+		{
+			const check_email1 = { user_email: email };
+			const check_update1= 
+			{ $push: 
+				{ user_send: ele2 } 
+			}
+			const check_email2 = { user_email: toEmail };
+			const check_update2= 
+			{ $push: 
+				{ user_recieve: ele1 } 
+			}
+			const ele3=await USER.findOneAndUpdate(check_email1,check_update1);
+			const ele4=await USER.findOneAndUpdate(check_email2,check_update2);
+	
+			const check_email = { user_email: email };
+			const check_update= 
+			{ 
+				user_count:ele1.user_count-1,
+			}
+			const ele6=await USER.findOneAndUpdate(check_email,check_update);
+			Logger.Logg.success("Successfull req sent")
+			res.status(200).send({message:"Success"})
 		}
-		const ele3=await USER.findOneAndUpdate(check_email1,check_update1);
-		const ele4=await USER.findOneAndUpdate(check_email2,check_update2);
-		Logger.Logg.success("Successfull req sent")
-		res.status(200).send({message:"Success"})
+		
     }
 	catch (error) 
 	{
@@ -483,6 +499,70 @@ router.post("/search/remove-user", async (req, res) => {
         res.status(404).json({message:error.message});
     }
 })
+
+
+
+
+router.post("/search/accept-request", async (req, res) => {
+	Logger.Logg.info("-----------server/search/accept-request")
+	var toEmail=req.body.toEmail;
+	var email=req.body.email;
+	try 
+	{
+		const ele1=await USER.findOne({user_email:email}).exec();
+		const ele2=await USER.findOne({user_email:toEmail}).exec();
+		const check_email1 = { user_email: email };
+		const check_update1= 
+		{ $pull: 
+			{ user_send: {_id:ele2._id} },
+		}
+		const check_email2 = { user_email: toEmail };
+		const check_update2= 
+		{ $pull: 
+			{ user_recieve: {_id:ele1._id} } 
+		}
+		const ele3=await USER.findOneAndUpdate(check_email1,check_update1);
+		const ele4=await USER.findOneAndUpdate(check_email2,check_update2);
+
+		const check_email11 = { user_email: email };
+		const check_update11= 
+		{ $pull: 
+			{ user_recieve: {_id:ele2._id} },
+		}
+		const check_email22 = { user_email: toEmail };
+		const check_update22= 
+		{ $pull: 
+			{ user_send: {_id:ele1._id} } 
+		}
+		const ele33=await USER.findOneAndUpdate(check_email11,check_update11);
+		const ele44=await USER.findOneAndUpdate(check_email22,check_update22);
+
+		const check_email3 = { user_email: email };
+		const check_update3= 
+		{ $push: 
+			{ user_accepted: ele2 } 
+		}
+		const check_email4 = { user_email: toEmail };
+		const check_update4= 
+		{ $push: 
+			{ user_accepted: ele1 } 
+		}
+
+		const ele5=await USER.findOneAndUpdate(check_email3,check_update3);
+		const ele6=await USER.findOneAndUpdate(check_email4,check_update4);
+		Logger.Logg.success("Successfull req accepted")
+		res.status(200).send({message:"Success"})
+    }
+	catch (error) 
+	{
+		Logger.Logg.error(error.message)
+        res.status(404).json({message:error.message});
+    }
+})
+
+
+
+
 
 
 module.exports = router
