@@ -22,6 +22,10 @@ import ProfileData from '../../assets/store/profileData';
 import SearchCard1 from '../../atom/searchCard1';
 import LoadingScreen from './../../atom/loadingScreen';
 
+import ErrorCard from '../../atom/errorCard';
+
+
+
 const Seach = (props) => {
     const navigate = useNavigate();
     const [allData,setAllData]=useState([])
@@ -435,6 +439,13 @@ const Seach = (props) => {
 
     return (
         <>
+        <ErrorCard 
+            errorDisplay={props.errorDisplay}
+            errorIcon={props.errorIcon}
+            errorText={props.errorText}
+            errorColor={props.errorColor}
+
+            />
             <Navbar LoggedIn={props.LoggedIn} LoggedInStatus={props.LoggedInStatus} />
             <Parallax blur={5} bgImage={back} bgImageAlt="the cat" strength={500}>
                 <div className='search__outer'>
@@ -655,7 +666,7 @@ const Seach = (props) => {
                                         allDisplay.map((ele)=>{
                                             
                                             return(
-                                                <SearchCard1 ele={ele} LoggedIn={props.LoggedIn} />
+                                                <SearchCard1 showError={props.showError} ele={ele} LoggedIn={props.LoggedIn} />
                                             )
                                         })
                                         

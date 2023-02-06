@@ -31,7 +31,7 @@ import AllData from '../../assets/store/allData';
 
 
 
-
+import ErrorCard from '../../atom/errorCard';
 
 
 
@@ -48,16 +48,16 @@ const Home = (props) => {
     function signUpClicked() {
         let nameCheck = /^[A-Z a-z]+$/;
         if (nameCheck.test(name) === false) {
-            alert("fill name correctly!!")
+            props.showError("fill name correctly!!","error")
             return;
         }
         var emailCheck = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
         if (emailCheck.test(email) === false) {
-            alert("Email is incorrect");
+            props.showError("Email is incorrect","error");
             return;
         }
         else if (pass === "") {
-            alert("fill pass correctly!!")
+            props.showError("fill pass correctly!!","error")
             return;
         }
         Axios.post('http://localhost:5000/api/post/sign-up',
@@ -67,12 +67,13 @@ const Home = (props) => {
                 pass: pass
             }).then((res) => {
                 if (res.data.message === "createdSuccess") {
-                    alert("Account Created Successfully!!!")
+                    props.showError("Account Created Successfully!!!","success")
                     props.LoggedInStatusCheck(true, res.data.data)
                     navigate("/profile")
                 }
                 else if (res.data.message === "alreadyExist") {
-                    alert("Account Already Exists Please Login!!!")
+                    props.showError("Account Already Exists Please Login!!!","info")
+                    navigate("/auth")
                 }
                 document.getElementById("nameSignup").value = "";
                 document.getElementById("emailSignup").value = "";
@@ -117,6 +118,13 @@ const Home = (props) => {
 
     return (
         <>
+            <ErrorCard 
+            errorDisplay={props.errorDisplay}
+            errorIcon={props.errorIcon}
+            errorText={props.errorText}
+            errorColor={props.errorColor}
+
+            />
             <Navbar LoggedIn={props.LoggedIn} LoggedInStatus={props.LoggedInStatus} />
             <Parallax blur={1} bgImage={back1} bgImageAlt="the cat" strength={200}>
                 <div className='home__outer__section1'>

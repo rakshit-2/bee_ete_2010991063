@@ -3,7 +3,7 @@ import Axios from 'axios'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from './../navbar/index';
-
+import ErrorCard from '../../atom/errorCard';
 
 
 const Auth=(props)=> {
@@ -21,18 +21,18 @@ const Auth=(props)=> {
     let nameCheck=/^[A-Z a-z]+$/;
     if(nameCheck.test(name)===false)
     {
-      alert("fill name correctly!!")
+      props.showError("fill name correctly!!","error")
       return;
     }
     var emailCheck=/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
     if(emailCheck.test(email)===false)
     {
-        alert("Email is incorrect");
+      props.showError("Email is incorrect","error");
         return;
     }
     else if(pass==="")
     {
-      alert("fill pass correctly!!")
+      props.showError("fill pass correctly!!","error")
       return;
     }
     Axios.post('http://localhost:5000/api/post/sign-up',
@@ -43,14 +43,14 @@ const Auth=(props)=> {
     }).then((res)=>{
       if(res.data.message==="createdSuccess")
       {
-        alert("Account Created Successfully!!!")
+        props.showError("Account Created Successfully!!!","success")
         console.log(res.data.data)
         props.LoggedInStatusCheck(true,res.data.data)
         navigate("/profile")
       }
       else if(res.data.message==="alreadyExist")
       {
-        alert("Account Already Exists Please Login!!!")
+        props.showError("Account Already Exists Please Login!!!","info")
       }
       document.getElementById("nameSignup").value="";
       document.getElementById("emailSignup").value="";
@@ -67,7 +67,7 @@ const Auth=(props)=> {
   {
     if(emailLogin==="" || passLogin==="")
     {
-        alert("Email Or Password is Incorrect!!");
+      props.showError("Email Or Password is Incorrect!!","error");
         return;
     }
     Axios.post('http://localhost:5000/api/post/sign-in',
@@ -77,7 +77,7 @@ const Auth=(props)=> {
     }).then((res)=>{
       if(res.data.message==="loginSuccess")
       {
-        alert("Login Successful!!!")
+        props.showError("Login Successful!!!","success")
         console.log(res)
         props.LoggedInStatusCheck(true,res.data.data)
         navigate("/profile")
@@ -86,7 +86,7 @@ const Auth=(props)=> {
       }
       else if(res.data.message==="loginFailed")
       {
-        alert("Email or Password Incorrect")
+        props.showError("Email or Password Incorrect","error")
       }
       
       // document.getElementById("checkTest").;
@@ -97,6 +97,13 @@ const Auth=(props)=> {
 
   return (
     <>
+    <ErrorCard 
+      errorDisplay={props.errorDisplay}
+      errorIcon={props.errorIcon}
+      errorText={props.errorText}
+      errorColor={props.errorColor}
+
+      />
     <Navbar/>
     <div className='outer__auth'>
       <div className="inner__auth">

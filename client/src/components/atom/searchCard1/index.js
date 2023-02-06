@@ -7,9 +7,10 @@ import twitter from './../../assets/image/twitter_logo.svg';
 // import image from './../../assets/images/home1.jpg';
 import Axios from 'axios';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const SearchCard1=(props)=>{
-
+    const navigate=useNavigate()
     const[reqDisplay,setReqDisplay]=useState({
         connect:"flex",
         req:"none"
@@ -25,10 +26,12 @@ const SearchCard1=(props)=>{
         }).then((res) => {
             if(res.data.message==="Subscription Over")
             {
-                alert("Subscription Over Add more from Profile!!")
+                props.showError("Subscription Over Add more from Profile!!","info")
+                navigate("/profile")
             }
             else
             {
+                props.showError("Request Sent!!","success")
                 setReqDisplay({connect:"none",req:"flex"})
             }
             
@@ -42,6 +45,7 @@ const SearchCard1=(props)=>{
             email: props.LoggedIn,
             toEmail:toEmail,
         }).then((res) => {
+            props.showError("Request Removed!!","info")
             setReqDisplay({connect:"flex",req:"none"})
         });
     }

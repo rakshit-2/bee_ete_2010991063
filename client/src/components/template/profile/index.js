@@ -26,6 +26,9 @@ import empty1 from './../../assets/image/Waiting-pana.svg'
 import empty2 from './../../assets/image/Waiting-bro.svg'
 
 
+import ErrorCard from '../../atom/errorCard';
+
+
 const Profile = (props) => {
     const navigate = useNavigate();
     const [addressPlace, setAddressPlace] = useState("#123, sector-5, CHD");
@@ -239,46 +242,46 @@ const Profile = (props) => {
         let yearNow = d.getFullYear();
         var check_age = parseInt(yearNow) - parseInt(dob[0])
         if ((check_age <= 19 || check_age >= 100 || age === "")) {
-            alert("Fill Age Correctly!!")
+            props.showError("Fill Age Correctly!!","error")
             return;
         }
 
         if (contact.length < 10) {
-            alert("Fill Contact Correctly!! (10 digits)")
+            props.showError("Fill Contact Correctly!! (10 digits)","error")
             return;
         }
 
         if (height === "") {
-            alert("Fill height Correctly!!")
+            props.showError("Fill height Correctly!!","error")
             return;
         }
         if (edu === "") {
-            alert("Fill Education Correctly!!")
+            props.showError("Fill Education Correctly!!","error")
             return;
         }
         if (occu === "") {
-            alert("Fill occupation Correctly!!")
+            props.showError("Fill occupation Correctly!!","error")
             return;
         }
         if (sallary === "") {
-            alert("Fill Sallary Correctly!!")
+            props.showError("Fill Sallary Correctly!!","error")
             return;
         }
         if (image === "") {
-            alert("Fill Image Correctly!!")
+            props.showError("Fill Image Correctly!!","error")
             return;
         }
         var check = /^[#.0-9a-zA-Z\s,-]+$/;
         if (check.test(address) === false) {
-            alert("Fill Address Correctly!!")
+            props.showError("Fill Address Correctly!!","error")
             return;
         }
         if (hobby === "") {
-            alert("Fill Hobby Correctly!!")
+            props.showError("Fill Hobby Correctly!!","error")
             return;
         }
         if (about === "") {
-            alert("Fill About Correctly!!")
+            props.showError("Fill About Correctly!!","error")
             return;
         }
         var check = image.replace(/^.*\\/, "")
@@ -309,6 +312,7 @@ const Profile = (props) => {
                 secLang: secLang
 
             }).then((res) => {
+                props.showError("Profile Updated Successfully!!","success")
                 GetProfile()
             });
     }
@@ -323,16 +327,24 @@ const Profile = (props) => {
             price:price,
             email: props.LoggedIn,
         }).then((res) => {
-            console.log(res.message)
+            props.showError("Payment Success!!","success")
         });
     }
 
     function LogoutClicked() {
         props.LoggedInStatusCheck(false, "");
+        props.showError("Logged Out","info")
         navigate('/home')
     }
     return (
         <>
+        <ErrorCard 
+            errorDisplay={props.errorDisplay}
+            errorIcon={props.errorIcon}
+            errorText={props.errorText}
+            errorColor={props.errorColor}
+
+        />
             <Navbar LoggedIn={props.LoggedIn} LoggedInStatus={props.LoggedInStatus} />
             {
                 // props.LoggedInStatus ? (

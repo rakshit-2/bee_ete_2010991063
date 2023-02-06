@@ -9,7 +9,7 @@ import Home from './components/template/home/index'
 import Profile from './components/template/profile/index'
 import Search from './components/template/search/index'
 import Auth from './components/template/auth/index'
-
+import { faTriangleExclamation,faCircleCheck,faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 
 const App=(props)=> {
   AOS.init({
@@ -23,8 +23,44 @@ const App=(props)=> {
   // globalStates
   const[LoggedIn,setLoggedIn]=useState("");
   const[LoggedInStatus,setLoggedInStatus]=useState(false);
-  
-  
+  const[errorDisplay,setErrorDisplay]=useState("none")
+  const[errorIcon,setErrorIcon]=useState()
+  const[errorText,setErrorText]=useState("Error")
+  const[errorColor,setErrorColor]=useState("red")
+
+
+  function myStopFunction() 
+  {
+    setErrorDisplay("none");
+  }
+
+  function showError(message,type)
+  {
+    setErrorText(message)
+    if(type==="success")
+    {
+      setErrorIcon(faCircleCheck);
+      setErrorDisplay("flex");
+      setErrorColor("green")
+    }
+    else if(type==="info")
+    {
+      setErrorIcon(faCircleInfo);
+      setErrorDisplay("flex")
+      setErrorColor("#FD9229")
+    }
+    else
+    {
+      setErrorIcon(faTriangleExclamation);
+      setErrorDisplay("flex")
+      setErrorColor("red")
+    }
+    setTimeout(myStopFunction, 4000);
+  }
+
+
+
+
   function LoggedInStatusCheck(x,data)
   {
     setLoggedIn(data);
@@ -57,6 +93,7 @@ const App=(props)=> {
 
 
 
+  
 
 
   return (
@@ -75,6 +112,15 @@ const App=(props)=> {
             handleChangeLocation={handleChangeLocation}
             handleChangeReligion={handleChangeReligion}
             valuetext={valuetext}
+
+
+
+            errorDisplay={errorDisplay}
+            errorIcon={errorIcon}
+            errorText={errorText}
+            errorColor={errorColor}
+            showError={showError}
+
           />}>
         </Route>
         <Route path="/search" element={
@@ -89,6 +135,13 @@ const App=(props)=> {
             handleChangeLocation={handleChangeLocation}
             handleChangeReligion={handleChangeReligion}
             valuetext={valuetext}
+
+
+            showError={showError}
+            errorDisplay={errorDisplay}
+            errorIcon={errorIcon}
+            errorText={errorText}
+            errorColor={errorColor}
           />}>
 
         </Route>
@@ -96,6 +149,13 @@ const App=(props)=> {
           <Profile 
             LoggedInStatusCheck={LoggedInStatusCheck}
             LoggedIn={LoggedIn} LoggedInStatus={LoggedInStatus}
+
+
+            showError={showError}
+            errorDisplay={errorDisplay}
+            errorIcon={errorIcon}
+            errorText={errorText}
+            errorColor={errorColor}
           />}>
 
         </Route>
@@ -104,6 +164,12 @@ const App=(props)=> {
             LoggedIn={LoggedIn}
             LoggedInStatusCheck={LoggedInStatusCheck}
             LoggedInStatus={LoggedInStatus}
+
+            showError={showError}
+            errorDisplay={errorDisplay}
+            errorIcon={errorIcon}
+            errorText={errorText}
+            errorColor={errorColor}
           />}>
           </Route>
         <Route path="*" element={<Navigate to="/home" replace />} />
