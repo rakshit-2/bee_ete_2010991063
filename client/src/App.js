@@ -9,6 +9,7 @@ import Home from './components/template/home/index'
 import Profile from './components/template/profile/index'
 import Search from './components/template/search/index'
 import Auth from './components/template/auth/index'
+import Err from './components/template/err/index'
 import { faTriangleExclamation,faCircleCheck,faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 
 const App=(props)=> {
@@ -100,6 +101,7 @@ const App=(props)=> {
     <>
     <BrowserRouter>
       <Routes>
+        <Route path="/" element={<Navigate to="/home" replace />} />
         <Route path="/home" element={
           <Home 
             LoggedInStatusCheck={LoggedInStatusCheck}
@@ -172,7 +174,20 @@ const App=(props)=> {
             errorColor={errorColor}
           />}>
           </Route>
-        <Route path="*" element={<Navigate to="/home" replace />} />
+        <Route path="/err" element={
+          <Err 
+            LoggedIn={LoggedIn}
+            LoggedInStatusCheck={LoggedInStatusCheck}
+            LoggedInStatus={LoggedInStatus}
+
+            showError={showError}
+            errorDisplay={errorDisplay}
+            errorIcon={errorIcon}
+            errorText={errorText}
+            errorColor={errorColor}
+          />}>
+          </Route>
+        <Route path="*" element={<Navigate to="/err" replace />} />
       </Routes>
     </BrowserRouter>
     </>

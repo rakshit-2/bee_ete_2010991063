@@ -8,12 +8,11 @@ const router = express.Router()
 
 
 // // Get all tests
-// router.get("/test", async (req, res) => {
-// 	// const ele=await TEST.insertMany([{id:0,name:"hello0"},{id:1,name:"hello1"},{id:2,name:"hello2"}])
-// 	// const ele=await TEST.findOne({name:"hello2"}).exec();
-// 	console.log(ele)
-// 	res.send(ele)
-// })
+router.get("/test", async (req, res) => {
+	// const ele=await TEST.insertMany([{id:0,name:"hello0"},{id:1,name:"hello1"},{id:2,name:"hello2"}])
+	// const ele=await TEST.findOne({name:"hello2"}).exec();
+	res.send("hello")
+})
 
 
 // // Get all posts
@@ -71,7 +70,7 @@ router.post("/post/sign-up", async (req, res) => {
 		{
 			try
 			{
-				const ele=await USER.insertMany([{user_name:name,user_email:email,user_pass:pass,user_updated:false}]);
+				const ele=await USER.insertMany([{user_name:name,user_email:email,user_pass:pass,user_updated:false,user_image:"face1.jpg"}]);
 				const ele1=await USER.findOne({user_email:email}).exec();
 				res.status(200).send({message:"createdSuccess",data:email})
 				Logger.Logg.success("User Created Success!!")
@@ -210,6 +209,7 @@ router.post("/profile/post-data", async (req, res) => {
 			user_marstat:marstat,
 			user_image:image,
 			user_pack:0,
+			user_count:0,
 			user_hobby:hobby,
 			user_about:about,
 			user_zodiac:zodiac,
@@ -333,7 +333,7 @@ router.post("/search/user-get", async (req, res) => {
 			Logger.Logg.success("Successfull Email Match User")
 			if(ele.user_gender==="Male")
 			{
-				const ele1=await USER.find({user_gender:"Female"}).exec();
+				const ele1=await USER.find({user_gender:"Female",user_updated:true}).exec();
 				if(ele1!=null)
 				{
 					Logger.Logg.success("Success Fetech all Female")
@@ -348,7 +348,7 @@ router.post("/search/user-get", async (req, res) => {
 			}
 			else
 			{
-				const ele2=await USER.find({user_gender:"Male"}).exec();
+				const ele2=await USER.find({user_gender:"Male",user_updated:true}).exec();
 				if(ele2!=null)
 				{
 					Logger.Logg.success("Success Fetech all Male")

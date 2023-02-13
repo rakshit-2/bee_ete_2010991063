@@ -357,7 +357,7 @@ const Profile = (props) => {
                                 <div className='payment__inner__eachProfile'>
                                     <div className='payment__inner__eachProfile__top'>
                                     {/* <img src={satyam} style={{width:"200px",height:"200px",borderRadius:"50%",border:"10px solid rgba(212, 28, 28, 0.684)",boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",marginLeft:"2rem"}}/> */}
-                                        <img src={require(`./../../assets/image/${dataFullProfile.user_image}`)} style={{width:"200px",height:"200px",borderRadius:"50%",border:"10px solid rgba(212, 28, 28, 0.684)",boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",marginLeft:"2rem"}}/>
+                                        <img src={require(`./../../assets/image/${userData.user_image}`)} style={{width:"200px",height:"200px",borderRadius:"50%",border:"10px solid rgba(212, 28, 28, 0.684)",boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",marginLeft:"2rem"}}/>
                                         <div className='payment__inner__eachProfile__top__close'>
                                             <div className='payment__inner__eachProfile__top__close__close' onClick={()=>{fullprofiledisplayChange(false,userData)}}>
                                                 <FontAwesomeIcon icon={faXmark} size="2x" style={{cursor:"pointer"}}/>
@@ -962,81 +962,84 @@ const Profile = (props) => {
                                 </div>
 
 
-                                <div className='profile__inner__notification' id="notification">
-                                    <div className='profile__inner__notification__head'>
-                                        Perfect Match
-                                    </div>
-                                    <div className='profile__inner__nav__line'></div>
-                                    <div className='profile__inner__notification__addedme'>
-                                        {
-                                            userData.user_accepted.length===0?(
-                                                <>
-                                                <img src={empty1} style={{width:"200px",height:"200px"}}/>
-                                                </>
-                                            ):(
-                                                userData.user_accepted.map((ele)=>{
-                                                    return(
-                                                        <ProfileNortCard1 fullprofiledisplayChange={fullprofiledisplayChange}  accepted={false} flag={false}  ele={ele}  LoggedIn={props.LoggedIn} GetProfile={GetProfile} AcceptedProfile={AcceptedProfile}/>
+                                
+
+                                {
+                                    userData.user_updated?(
+                                        <>
+                                        <div className='profile__inner__notification' id="notification">
+                                            <div className='profile__inner__notification__head'>
+                                                Perfect Match
+                                            </div>
+                                            <div className='profile__inner__nav__line'></div>
+                                            <div className='profile__inner__notification__addedme'>
+                                                {
+                                                    userData.user_accepted.length===0?(
+                                                        <>
+                                                        <img src={empty1} style={{width:"200px",height:"200px"}}/>
+                                                        </>
+                                                    ):(
+                                                        userData.user_accepted.map((ele)=>{
+                                                            return(
+                                                                <ProfileNortCard1 fullprofiledisplayChange={fullprofiledisplayChange}  accepted={false} flag={false}  ele={ele}  LoggedIn={props.LoggedIn} GetProfile={GetProfile} AcceptedProfile={AcceptedProfile}/>
+                                                            )
+                                                            
+                                                        })
                                                     )
                                                     
-                                                })
-                                            )
+                                                }
+                                            </div>
+                                        </div>
+                                        <div className='profile__inner__notification' id="notification">
+                                        <div className='profile__inner__notification__head'>
+                                            Notification
+                                        </div>
+                                        <div className='profile__inner__nav__line'></div>
+                                        <div className='profile__inner__notification__head__small'>
+                                            Request Recived:
+                                        </div>
+                                        <div className='profile__inner__notification__addedme'>
+                                            {
+                                                userData.user_recieve.length===0?(
+                                                    <>
+                                                    <img src={empty} style={{width:"200px",height:"200px"}}/>
+                                                    </>
+                                                ):(
+                                                    userData.user_recieve.map((ele)=>{
+                                                        return(
+                                                            <ProfileNortCard1 accepted={true} flag={false}  ele={ele}  LoggedIn={props.LoggedIn} GetProfile={GetProfile} AcceptedProfile={AcceptedProfile}/>
+                                                        )
+                                                        
+                                                    })
+                                                )
+                                                
+                                            }
                                             
-                                        }
-                                    </div>
-                                </div>
+                                        </div>
 
 
-                                <div className='profile__inner__notification' id="notification">
-                                    <div className='profile__inner__notification__head'>
-                                        Notification
-                                    </div>
-                                    <div className='profile__inner__nav__line'></div>
-                                    <div className='profile__inner__notification__head__small'>
-                                        Request Recived:
-                                    </div>
-                                    <div className='profile__inner__notification__addedme'>
-                                        {
-                                            userData.user_recieve.length===0?(
-                                                <>
-                                                <img src={empty} style={{width:"200px",height:"200px"}}/>
-                                                </>
-                                            ):(
-                                                userData.user_recieve.map((ele)=>{
-                                                    return(
-                                                        <ProfileNortCard1 accepted={true} flag={false}  ele={ele}  LoggedIn={props.LoggedIn} GetProfile={GetProfile} AcceptedProfile={AcceptedProfile}/>
-                                                    )
-                                                    
-                                                })
-                                            )
+                                        <div className='profile__inner__notification__head__small'>
+                                            Request Sent:
+                                        </div>
+                                        <div className='profile__inner__notification__addedme'>
+                                            {
+                                                userData.user_send.length===0?(
+                                                    <>
+                                                    <img src={empty2} style={{width:"200px",height:"200px"}}/>
+                                                    </>
+                                                ):(
+                                                    userData.user_send.map((ele)=>{
+                                                        return( 
+                                                            <ProfileNortCard1 accepted={true} flag={true} ele={ele} LoggedIn={props.LoggedIn}  GetProfile={GetProfile} AcceptedProfile={AcceptedProfile}/>
+                                                        )
+                                                        
+                                                    })
+                                                )
+                                                
+                                            }
                                             
-                                        }
-                                        
+                                        </div>
                                     </div>
-
-
-                                    <div className='profile__inner__notification__head__small'>
-                                        Request Sent:
-                                    </div>
-                                    <div className='profile__inner__notification__addedme'>
-                                        {
-                                            userData.user_send.length===0?(
-                                                <>
-                                                <img src={empty2} style={{width:"200px",height:"200px"}}/>
-                                                </>
-                                            ):(
-                                                userData.user_send.map((ele)=>{
-                                                    return( 
-                                                        <ProfileNortCard1 accepted={true} flag={true} ele={ele} LoggedIn={props.LoggedIn}  GetProfile={GetProfile} AcceptedProfile={AcceptedProfile}/>
-                                                    )
-                                                    
-                                                })
-                                            )
-                                            
-                                        }
-                                        
-                                    </div>
-                                </div>
 
                                 <div className='profile__inner__member'>
                                     <div className='profile__inner__notification__head'>
@@ -1094,11 +1097,14 @@ const Profile = (props) => {
                                         </div>
                                     </div>
                                 </div>
-
-                                
-
-
-
+                                        </>
+                                    ):
+                                    (
+                                        <>
+                                        
+                                        </>
+                                    )
+                                }
 
                                 </div>
                                 )
