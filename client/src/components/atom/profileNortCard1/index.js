@@ -45,7 +45,7 @@ const ProfileNortCard1=(props)=>{
         <>
         {
             props.accepted?(
-            <div key={props.ele._id} className='profile__inner__notification__addedme__each' style={{display:vis}}>
+            <div key={props.ele._id} className='profile__inner__notification__addedme__each' style={{display:vis}}  onClick={()=>{props.fullprofiledisplayChange(true,props.ele,"noAccept")}}>
                 <div className='profile__inner__notification__addedme__each__image'>
                     <img src={require(`./../../assets/image/${props.ele.user_image}`)} style={{width:"100%",height:"100%",borderRadius:"50%"}}/>
                 </div>
@@ -78,7 +78,7 @@ const ProfileNortCard1=(props)=>{
                     }
             </div>
             ):(
-            <div className='profile__inner__notification__addedme__each' style={{display:vis}}  onClick={()=>{props.fullprofiledisplayChange(true,props.ele)}}>
+            <div className='profile__inner__notification__addedme__each' style={{display:vis}}  onClick={()=>{props.fullprofiledisplayChange(true,props.ele,"accepted")}}>
                     <div className='profile__inner__notification__addedme__each__image'>
                         <img src={require(`./../../assets/image/${props.ele.user_image}`)} style={{width:"100%",height:"100%",borderRadius:"50%"}}/>
                     </div>

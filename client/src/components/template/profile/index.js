@@ -86,11 +86,20 @@ const Profile = (props) => {
     });
     const [fullProfileDisplay,setFullProfileDisplay]=useState("none")
     const [dataFullProfile,setDataFullProfile]=useState({})
+    const [contactDisplay,setContactDisplay]=useState("flex")
 
-    function fullprofiledisplayChange(x,ele)
+    function fullprofiledisplayChange(x,ele,val)
     {
         if(x)
         {
+            if(val==="noAccept")
+            {
+                setContactDisplay("none");
+            }
+            else if (val==="accepted")
+            {
+                setContactDisplay("flex");
+            }
             setFullProfileDisplay("flex");
             setProfileScroll({height:"100vh",scroll:"hidden"})
             setDataFullProfile(ele)
@@ -357,7 +366,7 @@ const Profile = (props) => {
                                 <div className='payment__inner__eachProfile'>
                                     <div className='payment__inner__eachProfile__top'>
                                     {/* <img src={satyam} style={{width:"200px",height:"200px",borderRadius:"50%",border:"10px solid rgba(212, 28, 28, 0.684)",boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",marginLeft:"2rem"}}/> */}
-                                        <img src={require(`./../../assets/image/${userData.user_image}`)} style={{width:"200px",height:"200px",borderRadius:"50%",border:"10px solid rgba(212, 28, 28, 0.684)",boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",marginLeft:"2rem"}}/>
+                                        <img src={require(`./../../assets/image/${dataFullProfile.user_image}`)} style={{width:"200px",height:"200px",borderRadius:"50%",border:"10px solid rgba(212, 28, 28, 0.684)",boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",marginLeft:"2rem"}}/>
                                         <div className='payment__inner__eachProfile__top__close'>
                                             <div className='payment__inner__eachProfile__top__close__close' onClick={()=>{fullprofiledisplayChange(false,userData)}}>
                                                 <FontAwesomeIcon icon={faXmark} size="2x" style={{cursor:"pointer"}}/>
@@ -384,7 +393,7 @@ const Profile = (props) => {
                                                 <span className='payment__inner__eachProfile__bottom__each__left__texthead'>Height:</span> {dataFullProfile.user_height}
                                                 </div>
                                             </fieldset>
-                                            <fieldset className='payment__inner__eachProfile__bottom__each__left'>
+                                            <fieldset className='payment__inner__eachProfile__bottom__each__left' style={{display:contactDisplay}}>
                                                 <legend className='legend__font'>Location Info:</legend>
                                                 <div className='payment__inner__eachProfile__bottom__each__left__text'>
                                                 <span className='payment__inner__eachProfile__bottom__each__left__texthead'>Country:</span> India
@@ -402,7 +411,7 @@ const Profile = (props) => {
                                                 <span className='payment__inner__eachProfile__bottom__each__left__texthead'>Hobbies:</span> {dataFullProfile.user_hobby}
                                                 </div>
                                             </fieldset>
-                                            <fieldset className='payment__inner__eachProfile__bottom__each__left'>
+                                            <fieldset className='payment__inner__eachProfile__bottom__each__left' style={{display:contactDisplay}}>
                                                 <legend className='legend__font'>Contact Info:</legend>
                                                 <div className='payment__inner__eachProfile__bottom__each__left__text'>
                                                 <span className='payment__inner__eachProfile__bottom__each__left__texthead'>Contact:</span> 91+ {dataFullProfile.user_contact}
@@ -1007,7 +1016,7 @@ const Profile = (props) => {
                                                 ):(
                                                     userData.user_recieve.map((ele)=>{
                                                         return(
-                                                            <ProfileNortCard1 accepted={true} flag={false}  ele={ele}  LoggedIn={props.LoggedIn} GetProfile={GetProfile} AcceptedProfile={AcceptedProfile}/>
+                                                            <ProfileNortCard1 fullprofiledisplayChange={fullprofiledisplayChange}  accepted={true} flag={false}  ele={ele}  LoggedIn={props.LoggedIn} GetProfile={GetProfile} AcceptedProfile={AcceptedProfile}/>
                                                         )
                                                         
                                                     })
@@ -1030,7 +1039,7 @@ const Profile = (props) => {
                                                 ):(
                                                     userData.user_send.map((ele)=>{
                                                         return( 
-                                                            <ProfileNortCard1 accepted={true} flag={true} ele={ele} LoggedIn={props.LoggedIn}  GetProfile={GetProfile} AcceptedProfile={AcceptedProfile}/>
+                                                            <ProfileNortCard1 fullprofiledisplayChange={fullprofiledisplayChange}  accepted={true} flag={true} ele={ele} LoggedIn={props.LoggedIn}  GetProfile={GetProfile} AcceptedProfile={AcceptedProfile}/>
                                                         )
                                                         
                                                     })
