@@ -10,6 +10,10 @@ import Profile from './components/template/profile/index'
 import Search from './components/template/search/index'
 import Auth from './components/template/auth/index'
 import Err from './components/template/err/index'
+import Admin from './components/template/admin/index'
+import AdminEnter from './components/template/adminEnter/index'
+
+
 import { faTriangleExclamation,faCircleCheck,faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 
 const App=(props)=> {
@@ -24,6 +28,9 @@ const App=(props)=> {
   // globalStates
   const[LoggedIn,setLoggedIn]=useState("");
   const[LoggedInStatus,setLoggedInStatus]=useState(false);
+  const[adminLoggedIn,setAdminLoggedIn]=useState("");
+  const[adminLoggedInStatus,setAdminLoggedInStatus]=useState(false);
+
   const[errorDisplay,setErrorDisplay]=useState("none")
   const[errorIcon,setErrorIcon]=useState()
   const[errorText,setErrorText]=useState("Error")
@@ -66,6 +73,12 @@ const App=(props)=> {
   {
     setLoggedIn(data);
     setLoggedInStatus(x);
+  }
+
+  function AdminLoggedInStatusCheck(x,data)
+  {
+    setAdminLoggedIn(data);
+    setAdminLoggedInStatus(x);
   }
 
 
@@ -174,6 +187,50 @@ const App=(props)=> {
             errorColor={errorColor}
           />}>
           </Route>
+        <Route path="/admin" element={
+          <Admin 
+            LoggedInStatusCheck={LoggedInStatusCheck}
+            LoggedIn={LoggedIn} 
+            LoggedInStatus={LoggedInStatus}
+            location={location}
+            religion={religion}
+            age={age}
+            handleChangeAge={handleChangeAge}
+            handleChangeLocation={handleChangeLocation}
+            handleChangeReligion={handleChangeReligion}
+            valuetext={valuetext}
+            errorDisplay={errorDisplay}
+            errorIcon={errorIcon}
+            errorText={errorText}
+            errorColor={errorColor}
+            showError={showError}
+            AdminLoggedInStatusCheck={AdminLoggedInStatusCheck}
+            adminLoggedIn={adminLoggedIn}
+            adminLoggedInStatus={adminLoggedInStatus}
+          />}>
+        </Route>
+        <Route path="/admin-enter" element={
+          <AdminEnter 
+            LoggedInStatusCheck={LoggedInStatusCheck}
+            LoggedIn={LoggedIn} 
+            LoggedInStatus={LoggedInStatus}
+            location={location}
+            religion={religion}
+            age={age}
+            handleChangeAge={handleChangeAge}
+            handleChangeLocation={handleChangeLocation}
+            handleChangeReligion={handleChangeReligion}
+            valuetext={valuetext}
+            errorDisplay={errorDisplay}
+            errorIcon={errorIcon}
+            errorText={errorText}
+            errorColor={errorColor}
+            showError={showError}
+            AdminLoggedInStatusCheck={AdminLoggedInStatusCheck}
+            adminLoggedIn={adminLoggedIn}
+            adminLoggedInStatus={adminLoggedInStatus}
+          />}>
+        </Route>
         <Route path="/err" element={
           <Err 
             LoggedIn={LoggedIn}
