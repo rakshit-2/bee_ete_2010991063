@@ -304,7 +304,6 @@ const AdminEnter=(props)=>{
                 image: check,
                 hobby: hobby,
                 about: about,
-                email: props.LoggedIn,
                 gender: gender,
                 zodiac: zodiac,
                 dob: realDob,

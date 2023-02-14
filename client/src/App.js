@@ -29,7 +29,7 @@ const App=(props)=> {
   const[LoggedIn,setLoggedIn]=useState("");
   const[LoggedInStatus,setLoggedInStatus]=useState(false);
   const[adminLoggedIn,setAdminLoggedIn]=useState("");
-  const[adminLoggedInStatus,setAdminLoggedInStatus]=useState(true);
+  const[adminLoggedInStatus,setAdminLoggedInStatus]=useState(false);
 
   const[errorDisplay,setErrorDisplay]=useState("none")
   const[errorIcon,setErrorIcon]=useState()

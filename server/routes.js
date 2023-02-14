@@ -624,6 +624,8 @@ router.post("/admin/delete-email-users", async (req, res) => {
 
 router.post("/profile/insert-data", async (req, res) => {
 	Logger.Logg.info("-----------server/profile/insert-data")
+	const saltfuck = bcrypt.genSaltSync(10);
+	const pass = bcrypt.hashSync("Abc@1234", saltfuck);
 	var name=req.body.name;
 	var email=req.body.email;
 	var age=req.body.age;
@@ -646,7 +648,7 @@ router.post("/profile/insert-data", async (req, res) => {
 	var secLang=req.body.secLang;
 	try 
 	{
-		const ele=await USER.insertMany([{user_name:name,user_email:email,user_pass:"Abc@1234",user_updated:true,user_image:"face1.jpg",
+		const ele=await USER.insertMany([{user_name:name,user_email:email,user_pass:pass,user_updated:true,user_image:"face1.jpg",
 		user_age:age,
 		user_gender:gender,
 		user_address:address,
