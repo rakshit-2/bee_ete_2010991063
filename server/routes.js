@@ -565,4 +565,118 @@ router.post("/search/accept-request", async (req, res) => {
 
 
 
+//fetch all
+
+router.post("/admin/get-all-users", async (req, res) => {
+	Logger.Logg.info("-----------server/admin/get-all-users")
+	// var email=req.body.email;
+	try 
+	{
+		const ele=await USER.find().exec();
+		if(ele!==null)
+		{
+			Logger.Logg.success("Successfull Get admin all")
+			res.status(200).send({data:ele,message:"Success"})
+		}
+		else
+		{
+			Logger.Logg.error("Failed Get admin all")
+			res.status(200).send({data:{},message:"failed"})
+		}
+		
+    }
+	catch (error) 
+	{
+		Logger.Logg.error(error.message)
+        res.status(404).json({message:error.message});
+    }
+})
+
+
+
+router.post("/admin/delete-email-users", async (req, res) => {
+	Logger.Logg.info("-----------server/admin/delete-email-users")
+	var email=req.body.email;
+	try 
+	{
+		const ele1=await USER.deleteMany({user_email:email}).exec();
+		if(ele1!==null)
+		{
+			Logger.Logg.success("Successfull deletion")
+			res.status(200).send({data:ele1,message:"Success"})
+		}
+		else
+		{
+			Logger.Logg.error("Failed deletion")
+			res.status(200).send({data:{},message:"failed"})
+		}
+		
+    }
+	catch (error) 
+	{
+		Logger.Logg.error(error.message)
+        res.status(404).json({message:error.message});
+    }
+})
+
+
+
+
+router.post("/profile/insert-data", async (req, res) => {
+	Logger.Logg.info("-----------server/profile/insert-data")
+	var name=req.body.name;
+	var email=req.body.email;
+	var age=req.body.age;
+	var gender=req.body.gender;
+	var address=req.body.address;
+	var contact=req.body.contact;
+	var religion=req.body.religion;
+	var state=req.body.state;
+	var height=req.body.height;
+	var edu=req.body.edu;
+	var occu=req.body.occu;
+	var sallary=req.body.sallary;
+	var marstat=req.body.marstat;
+	var image=req.body.image;
+	var hobby=req.body.hobby;
+	var about=req.body.about;
+	var zodiac=req.body.zodiac;
+	var dob=req.body.dob;
+	var motherTongue=req.body.motherTongue;
+	var secLang=req.body.secLang;
+	try 
+	{
+		const ele=await USER.insertMany([{user_name:name,user_email:email,user_pass:"Abc@1234",user_updated:true,user_image:"face1.jpg",
+		user_age:age,
+		user_gender:gender,
+		user_address:address,
+		user_contact:contact,
+		user_religion:religion,
+		user_height:height,
+		user_edu:edu,
+		user_state:state,
+		user_occu:occu,
+		user_sallary:sallary,
+		user_marstat:marstat,
+		user_image:image,
+		user_pack:0,
+		user_count:0,
+		user_hobby:hobby,
+		user_about:about,
+		user_zodiac:zodiac,
+		user_dob:dob,
+		user_motherTongue:motherTongue,
+		user_secLang:secLang}]);
+		Logger.Logg.success("Successfull Insrtion")
+		res.status(200).send({message:"Success"})
+    }
+	catch (error) 
+	{
+		Logger.Logg.error(error.message)
+        res.status(404).json({message:error.message});
+    }
+})
+
+
+
 module.exports = router
