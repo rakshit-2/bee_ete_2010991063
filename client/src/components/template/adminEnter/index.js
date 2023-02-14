@@ -103,7 +103,7 @@ const AdminEnter=(props)=>{
             getRegiosteredUser();
         }
         else {
-            navigate("/auth")
+            navigate("/admin")
         }
     }, []);
     
