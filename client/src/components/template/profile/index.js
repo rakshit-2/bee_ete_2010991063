@@ -650,7 +650,7 @@ const Profile = (props) => {
                                             <div className='profile__line'>
                                             </div>
                                             <div className='profile__inner__each__left__content__each'>
-                                                {userData.user_age}
+                                                {userData.user_dob}
                                             </div>
                                         </div>
                                         <div className='profile__inner__each__left__content' style={{ display: afterSubmit.before }}>
